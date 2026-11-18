@@ -1,0 +1,111 @@
+{
+  "contract_act_s27": {
+    "act": "Indian Contract Act, 1872",
+    "section": "27",
+    "title": "Agreements in restraint of trade",
+    "summary": "Agreements that restrain a person from a lawful profession, trade or business are void to that extent (subject to the statutory exception for sale of goodwill).",
+    "source_url": "https://www.indiacode.nic.in/handle/123456789/12845",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Section 27 heading and text checked against India Code; includes statutory exception concerning sale of goodwill."
+  },
+  "contract_act_s73": {
+    "act": "Indian Contract Act, 1872",
+    "section": "73",
+    "title": "Compensation for loss or damage caused by breach of contract",
+    "summary": "A party suffering from a breach may claim compensation for loss that naturally arose from the breach or that the parties knew likely to result.",
+    "source_url": "https://www.indiacode.nic.in/handle/123456789/12845",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Section 73 heading and text checked against India Code."
+  },
+  "contract_act_s74": {
+    "act": "Indian Contract Act, 1872",
+    "section": "74",
+    "title": "Compensation for breach where penalty stipulated for",
+    "summary": "Where a sum is named as payable on breach, the court may award only reasonable compensation not exceeding the named amount.",
+    "source_url": "https://www.indiacode.nic.in/handle/123456789/12845",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Section 74 heading and text checked against India Code."
+  },
+  "topa_s105_111": {
+    "act": "Transfer of Property Act, 1882",
+    "section": "105-111",
+    "title": "Leases of immovable property",
+    "summary": "Defines lease and sets rules on duration, notice to terminate and forfeiture. Check the exact notice provision and any state amendments.",
+    "source_url": "https://www.indiacode.nic.in/bitstream/123456789/14648/1/tpa.pdf",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Sections 105–107 checked against official India Code PDF; state amendments and lease facts still require review."
+  },
+  "registration_act_s17": {
+    "act": "Registration Act, 1908",
+    "section": "17",
+    "title": "Documents of which registration is compulsory",
+    "summary": "Lists documents that must be registered, including certain leases. Check the lease-related limb and any Telangana amendments.",
+    "source_url": "https://www.indiacode.nic.in/bitstream/123456789/13236/1/the_registration_act%2C_1908.pdf",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Registration Act source checked; section 17 and applicable state amendments must be assessed for the instrument."
+  },
+  "it_act_s5": {
+    "act": "Information Technology Act, 2000",
+    "section": "5",
+    "title": "Legal recognition of electronic signatures",
+    "summary": "Electronic signatures meeting the Act's requirements are legally recognised. This does not remove stamp-duty or registration requirements.",
+    "source_url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "IT Act source checked including section 10A and First Schedule exclusions; e-sign eligibility remains instrument-specific."
+  },
+  "telangana_rent_control": {
+    "act": "State rent control law (candidate: Telangana Buildings (Lease, Rent and Eviction) Control Act)",
+    "section": "to confirm",
+    "title": "Tenancy and eviction protections",
+    "summary": "A state rent control statute may apply to the premises. Applicability, rent thresholds and eviction grounds must be confirmed from the official text.",
+    "source_url": "https://www.indiacode.nic.in",
+    "verified": false,
+    "verified_at": null
+  },
+  "copyright_act_s17_19": {
+    "act": "Copyright Act, 1957",
+    "section": "17 and 19",
+    "title": "First ownership of copyright; assignment must be in writing",
+    "summary": "Section 17 deals with who first owns copyright, including works made in the course of employment. Section 19 sets formal requirements for an assignment, including writing and the rights, duration and territory covered. Confirm the exact text.",
+    "source_url": "https://upload.indiacode.nic.in/showfile?actid=AC_CEN_9_30_00006_195714_1517807321712&filename=a1957-14.pdf&type=actfile",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Sections 17 and 19 checked against official India Code PDF; specific employment/commission facts and assignment wording require review."
+  },
+  "msmed_s15_16": {
+    "act": "Micro, Small and Medium Enterprises Development Act, 2006",
+    "section": "15-16",
+    "title": "Payment to micro and small enterprises",
+    "summary": "Sets payment time limits and interest on delayed payment for registered micro and small enterprise suppliers. Applies only if the supplier is registered; confirm applicability and the current text.",
+    "source_url": "https://www.indiacode.nic.in/bitstream/123456789/19412/1/msme_act_2006.pdf",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Sections 15–16 checked against official India Code PDF; eligibility and supplier status are fact-dependent."
+  },
+  "sale_goods_act_s12_17": {
+    "act": "Sale of Goods Act, 1930",
+    "section": "12-17",
+    "title": "Conditions and warranties; sale by description and sample",
+    "summary": "The Act distinguishes conditions and warranties and provides implied terms concerning title, description, quality/fitness and sale by sample, subject to the statutory provisions and exceptions.",
+    "source_url": "https://www.indiacode.nic.in/indiacode/bitstream/123456789/2390/1/193003.pdf",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Sections 12-17 headings and official Act text checked against India Code PDF; exceptions and transaction facts require review."
+  },
+  "partnership_act_s4_11": {
+    "act": "Indian Partnership Act, 1932",
+    "section": "4-11",
+    "title": "Definition, nature and relations of partners",
+    "summary": "The Act defines partnership and sets out foundational rules on the relation of partners, including duties and rights subject to contract between partners and the Act.",
+    "source_url": "https://www.indiacode.nic.in/handle/123456789/12849?view_type=browse",
+    "verified": true,
+    "verified_at": "2026-11-18",
+    "verification_note": "Official India Code Act record and section headings checked; state amendments, registration and firm-specific facts require review."
+  }
+}

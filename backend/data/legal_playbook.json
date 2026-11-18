@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "jurisdiction": "India",
+  "notice": "Illustrative starting playbook only. These positions are not legal standards, lawyer-approved advice, or a substitute for the user's negotiated positions. Configure for each organisation and transaction.",
+  "risk_levels": {
+    "RED": {"meaning": "Material exposure, unusual obligation, missing essential protection, or potential legal/compliance blocker", "action": "Escalate to qualified counsel or authorised decision-maker before acceptance"},
+    "YELLOW": {"meaning": "Meaningful deviation, ambiguity, one-sided term, or issue needing business/legal review", "action": "Review and negotiate; document rationale for acceptance"},
+    "GREEN": {"meaning": "No material issue detected against this limited checklist", "action": "Continue ordinary approval; this is not a legal-validity certification"}
+  },
+  "positions": [
+    {"id":"liability_cap","topic":"Limitation of liability","default_position":"Clearly define a proportionate, commercially agreed cap and identify any negotiated carve-outs","acceptable_range":"Transaction-specific; no universal cap is assumed","escalation_triggers":["uncapped liability","cap excludes broad categories without rationale","cap is unclear or internally inconsistent"]},
+    {"id":"indemnity","topic":"Indemnification","default_position":"Define covered claims, procedure, control of defence, mitigation and settlement consent","acceptable_range":"Allocate risk to the party best able to control it","escalation_triggers":["unlimited or one-way indemnity","no claim procedure","indemnity covers the indemnified party's own negligence or breach without clear allocation"]},
+    {"id":"termination","topic":"Termination","default_position":"State termination rights, notice, cure period where agreed, and consequences","acceptable_range":"Depends on contract type and deal context","escalation_triggers":["no exit for material breach","unilateral immediate termination without objective trigger","unclear payment/refund or transition consequences"]},
+    {"id":"confidentiality","topic":"Confidentiality","default_position":"Define confidential information, permitted use, exclusions, recipients, safeguards and return/deletion","acceptable_range":"Duration and exceptions depend on information and applicable law","escalation_triggers":["no standard exclusions","unbounded disclosure rights","no handling/security obligations"]},
+    {"id":"data_protection","topic":"Personal data and security","default_position":"Identify roles, purpose, instructions, security, incident notice, retention/deletion and transfer controls","acceptable_range":"Map obligations to actual processing and applicable Indian law","escalation_triggers":["personal data processing without defined purpose or safeguards","no incident handling","unclear controller/processor responsibilities"]},
+    {"id":"ip_ownership","topic":"Intellectual property","default_position":"Identify background IP, newly created IP, licence/assignment scope, territory, duration and consideration","acceptable_range":"Must reflect actual commercial bargain and statutory formalities","escalation_triggers":["ownership transfer unclear","assignment/licence scope incomplete","third-party or open-source rights unaddressed"]},
+    {"id":"dispute_resolution","topic":"Dispute resolution","default_position":"Specify governing law, forum/seat where relevant, escalation and dispute mechanism","acceptable_range":"Must be coherent with transaction and enforceability review","escalation_triggers":["conflicting courts/seats","unclear arbitration mechanism","foreign forum without commercial rationale"]},
+    {"id":"payment","topic":"Payment and tax","default_position":"Define amount, milestones, invoice trigger, due date, taxes, withholding and disputed invoice process","acceptable_range":"Commercially negotiated; do not infer rates or tax treatment","escalation_triggers":["payment trigger absent","unilateral deductions/set-off","tax allocation ambiguous"]}
+  ],
+  "nda_checklist": [
+    {"id":"purpose","label":"Defined purpose and permitted use","red_if_missing":true},
+    {"id":"definition","label":"Confidential information definition and standard exclusions","red_if_missing":true},
+    {"id":"duration","label":"Term and survival period","red_if_missing":true},
+    {"id":"recipients","label":"Permitted representatives and responsibility for them","red_if_missing":false},
+    {"id":"compelled_disclosure","label":"Legally compelled disclosure process","red_if_missing":false},
+    {"id":"return_deletion","label":"Return/deletion and archival exceptions","red_if_missing":false},
+    {"id":"remedies","label":"Remedies and liability language","red_if_missing":false},
+    {"id":"mutuality","label":"Mutuality matches information flow","red_if_missing":false},
+    {"id":"data_security","label":"Personal data/security obligations if personal data is shared","red_if_missing":false}
+  ]
+}

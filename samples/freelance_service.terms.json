@@ -1,0 +1,94 @@
+{
+  "fingerprint": "637b9087fbb4acdd610f1a283236e2a1d001b6463ac87c1c17a736a553ab36cc",
+  "terms": {
+    "contract_type": "freelance_service",
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "client_name": "BrightLeaf Foods Pvt Ltd",
+    "freelancer_name": "Meena Iyer",
+    "services_description": "design and development of a 5-page marketing website",
+    "start_date": "2026-12-05",
+    "delivery_date": "2027-01-20",
+    "total_fee": 120000,
+    "payment_due_days": 15,
+    "ip_ownership": "client_on_full_payment",
+    "termination_notice_days": 14,
+    "advance_percent": 30,
+    "late_interest_pct_per_month": 2.0,
+    "revision_rounds": 2,
+    "confidentiality_years": 2,
+    "non_compete_months": 24,
+    "liability_cap_multiple": 1.0,
+    "kill_fee_percent": 20
+  },
+  "obligations": [
+    {
+      "id": "deliver",
+      "kind": "deliver_work",
+      "party": "freelancer",
+      "clause_key": "term_delivery",
+      "description": "Deliver the final deliverables",
+      "rule": {
+        "due": "2027-01-20"
+      }
+    },
+    {
+      "id": "pay_invoice",
+      "kind": "pay_invoice",
+      "party": "client",
+      "clause_key": "fee_payment",
+      "description": "Pay each invoice within the payment window",
+      "rule": {
+        "within_days": 15,
+        "total_fee": 120000
+      }
+    },
+    {
+      "id": "termination_notice",
+      "kind": "termination_notice",
+      "party": "both",
+      "clause_key": "termination",
+      "description": "Give written notice to end early",
+      "rule": {
+        "notice_days": 14
+      }
+    },
+    {
+      "id": "advance",
+      "kind": "pay_advance",
+      "party": "client",
+      "clause_key": "advance",
+      "description": "Pay the advance before work starts",
+      "rule": {
+        "percent": 30
+      }
+    },
+    {
+      "id": "late_interest",
+      "kind": "late_interest",
+      "party": "client",
+      "clause_key": "late_payment",
+      "description": "Pay interest on overdue invoices",
+      "rule": {
+        "pct_per_month": 2.0
+      }
+    },
+    {
+      "id": "confidentiality",
+      "kind": "confidentiality",
+      "party": "both",
+      "clause_key": "confidentiality",
+      "description": "Keep information confidential",
+      "rule": {
+        "years": 2
+      }
+    }
+  ],
+  "automatic_checks": [
+    {
+      "clause_key": "non_compete",
+      "severity": "high",
+      "message": "A 24-month post-termination restriction on a freelancer is commonly challenged under Section 27 of the Contract Act. See the case-law check."
+    }
+  ]
+}

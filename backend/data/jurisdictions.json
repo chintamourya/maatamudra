@@ -1,0 +1,866 @@
+[
+  {
+    "name": "Andhra Pradesh",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://registration.ap.gov.in/igrs",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Arunachal Pradesh",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrs.arunachal.gov.in/NGDRS_AR/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Assam",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrs.assam.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Bihar",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://nibandhan.bihar.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Chhattisgarh",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://www.ngdrs.cg.gov.in/NGDRS_CG/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Goa",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrsgoa.gov.in/NGDRS_GA/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Gujarat",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://garvi.gujarat.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Haryana",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://jamabandi.nic.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Himachal Pradesh",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrshp.gov.in/NGDRS_HP_LIVE/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Jharkhand",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://jharnibandhan.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Karnataka",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://igr.karnataka.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Kerala",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://keralaregistration.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Madhya Pradesh",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://www.mpigr.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Maharashtra",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://isarita.igrmaharashtra.gov.in/PDE_2_0/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Manipur",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrsmanipur.nic.in/NGDRS_MN/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Meghalaya",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrs.meghalaya.gov.in/NGDRS_ML/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Mizoram",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://igrmizoram.nic.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Nagaland",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": null,
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "no_registration_portal_link_listed_by_NGDRS_directory",
+    "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Odisha",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://igrodisha.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Punjab",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://easyregistry.punjab.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Rajasthan",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://epanjiyan.rajasthan.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Sikkim",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": null,
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "no_registration_portal_link_listed_by_NGDRS_directory",
+    "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Tamil Nadu",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://tnreginet.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Telangana",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://registration.telangana.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Tripura",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://ngdrs.tripura.gov.in/NGDRS_TR/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Uttar Pradesh",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://igrsup.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Uttarakhand",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "http://eregistrationukgov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "West Bengal",
+    "kind": "state",
+    "country": "India",
+    "registration_portal": "https://wbregistration.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Andaman and Nicobar Islands",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://onlineregistrationani.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Chandigarh",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://ngdrs.chd.gov.in/NGDRS_CH/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Dadra and Nagar Haveli and Daman and Diu",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://ngdrs.dnh.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Delhi",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://ngdrs.delhi.gov.in/NGDRS_DL/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Jammu and Kashmir",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://ngdrs.jk.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Ladakh",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://ngdrs.ladakh.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Lakshadweep",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://lakshadweep.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  },
+  {
+    "name": "Puducherry",
+    "kind": "union_territory",
+    "country": "India",
+    "registration_portal": "https://regnec.py.gov.in/",
+    "registration_source": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+    "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+    "digital_e_stamp_status": "listed_on_NeSL_DDE_directory",
+    "digital_e_stamp_source": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+    "state_stamp_schedule_status": "requires_instrument_specific_current_gazette_verification",
+    "state_tenancy_employment_rules_status": "requires_instrument_and_fact_specific_verification",
+    "verified_scope": [
+      "official_registration_portal_directory_entry",
+      "NeSL_DDE_directory_presence_status"
+    ],
+    "not_verified": [
+      "stamp_duty_amounts",
+      "registration_exemptions",
+      "rent_control_applicability",
+      "state_labour_rules",
+      "instrument_specific_legal_conclusions"
+    ],
+    "last_research_date": "2026-11-18"
+  }
+]

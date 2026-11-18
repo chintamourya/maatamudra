@@ -1,0 +1,95 @@
+{
+  "fingerprint": "bd40826901e45ca7e36d2f9c29b8ad75a987c09d177ff8e758f7eb0e579f348d",
+  "terms": {
+    "contract_type": "employment",
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "employer_name": "Nimbus Analytics Pvt Ltd",
+    "employee_name": "Karthik Reddy",
+    "designation": "Software Engineer",
+    "start_date": "2026-12-15",
+    "monthly_salary": 85000,
+    "notice_period_days": 60,
+    "ip_to_employer": true,
+    "probation_months": 6,
+    "probation_notice_days": 15,
+    "confidentiality_years": 3,
+    "non_solicit_months": 12,
+    "non_compete_months": 12,
+    "training_bond_amount": 150000,
+    "training_bond_months": 18,
+    "bond_pro_rata": false
+  },
+  "obligations": [
+    {
+      "id": "pay_salary",
+      "kind": "pay_salary",
+      "party": "employer",
+      "clause_key": "remuneration",
+      "description": "Pay monthly salary",
+      "rule": {
+        "amount": 85000
+      }
+    },
+    {
+      "id": "notice",
+      "kind": "termination_notice",
+      "party": "both",
+      "clause_key": "notice",
+      "description": "Give notice to end the employment",
+      "rule": {
+        "notice_days": 60
+      }
+    },
+    {
+      "id": "probation",
+      "kind": "probation",
+      "party": "both",
+      "clause_key": "probation",
+      "description": "Shorter notice during probation",
+      "rule": {
+        "months": 6,
+        "notice_days": 15
+      }
+    },
+    {
+      "id": "confidentiality",
+      "kind": "confidentiality",
+      "party": "employee",
+      "clause_key": "confidentiality",
+      "description": "Keep information confidential",
+      "rule": {
+        "years": 3
+      }
+    },
+    {
+      "id": "bond",
+      "kind": "training_bond",
+      "party": "employee",
+      "clause_key": "training_bond",
+      "description": "Repay the bond if leaving early",
+      "rule": {
+        "amount": 150000,
+        "months": 18,
+        "pro_rata": false
+      }
+    }
+  ],
+  "automatic_checks": [
+    {
+      "clause_key": "non_compete",
+      "severity": "high",
+      "message": "A 12-month post-employment non-compete is commonly challenged under Section 27 of the Contract Act. See the case-law check."
+    },
+    {
+      "clause_key": "training_bond",
+      "severity": "high",
+      "message": "A flat bond amount regardless of months served is more exposed to a challenge as a penalty under Section 74."
+    },
+    {
+      "clause_key": "remuneration",
+      "severity": "low",
+      "message": "Check which labour code provisions apply to this employee and employer before relying on these terms."
+    }
+  ]
+}

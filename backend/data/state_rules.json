@@ -1,0 +1,938 @@
+{
+  "andhra pradesh": {
+    "name": "Andhra Pradesh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://registration.ap.gov.in/igrs",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://registration.ap.gov.in/igrs",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "arunachal pradesh": {
+    "name": "Arunachal Pradesh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.arunachal.gov.in/NGDRS_AR/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.arunachal.gov.in/NGDRS_AR/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "assam": {
+    "name": "Assam",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.assam.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.assam.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "bihar": {
+    "name": "Bihar",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://nibandhan.bihar.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://nibandhan.bihar.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "chhattisgarh": {
+    "name": "Chhattisgarh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://www.ngdrs.cg.gov.in/NGDRS_CG/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://www.ngdrs.cg.gov.in/NGDRS_CG/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "goa": {
+    "name": "Goa",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrsgoa.gov.in/NGDRS_GA/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrsgoa.gov.in/NGDRS_GA/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "gujarat": {
+    "name": "Gujarat",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://garvi.gujarat.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://garvi.gujarat.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "haryana": {
+    "name": "Haryana",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://jamabandi.nic.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://jamabandi.nic.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel"
+    },
+    "research_date": "2026-11-18"
+  },
+  "himachal pradesh": {
+    "name": "Himachal Pradesh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrshp.gov.in/NGDRS_HP_LIVE/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrshp.gov.in/NGDRS_HP_LIVE/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "jharkhand": {
+    "name": "Jharkhand",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://jharnibandhan.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://jharnibandhan.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "karnataka": {
+    "name": "Karnataka",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://igr.karnataka.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://igr.karnataka.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "kerala": {
+    "name": "Kerala",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://keralaregistration.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://keralaregistration.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "madhya pradesh": {
+    "name": "Madhya Pradesh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://www.mpigr.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://www.mpigr.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "maharashtra": {
+    "name": "Maharashtra",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://isarita.igrmaharashtra.gov.in/PDE_2_0/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://isarita.igrmaharashtra.gov.in/PDE_2_0/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "manipur": {
+    "name": "Manipur",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrsmanipur.nic.in/NGDRS_MN/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrsmanipur.nic.in/NGDRS_MN/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "meghalaya": {
+    "name": "Meghalaya",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.meghalaya.gov.in/NGDRS_ML/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.meghalaya.gov.in/NGDRS_ML/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "mizoram": {
+    "name": "Mizoram",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://igrmizoram.nic.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://igrmizoram.nic.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel"
+    },
+    "research_date": "2026-11-18"
+  },
+  "nagaland": {
+    "name": "Nagaland",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+      "registration_portal_status": "no_registration_portal_link_listed_by_NGDRS_directory",
+      "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel"
+    },
+    "research_date": "2026-11-18"
+  },
+  "odisha": {
+    "name": "Odisha",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://igrodisha.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://igrodisha.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "punjab": {
+    "name": "Punjab",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://easyregistry.punjab.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://easyregistry.punjab.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "rajasthan": {
+    "name": "Rajasthan",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://epanjiyan.rajasthan.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://epanjiyan.rajasthan.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "sikkim": {
+    "name": "Sikkim",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+      "registration_portal_status": "no_registration_portal_link_listed_by_NGDRS_directory",
+      "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel"
+    },
+    "research_date": "2026-11-18"
+  },
+  "tamil nadu": {
+    "name": "Tamil Nadu",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://tnreginet.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://tnreginet.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "telangana": {
+    "name": "Telangana",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://registration.telangana.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://registration.telangana.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "tripura": {
+    "name": "Tripura",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.tripura.gov.in/NGDRS_TR/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.tripura.gov.in/NGDRS_TR/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "uttar pradesh": {
+    "name": "Uttar Pradesh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://igrsup.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://igrsup.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "uttarakhand": {
+    "name": "Uttarakhand",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "http://eregistrationukgov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "http://eregistrationukgov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "west bengal": {
+    "name": "West Bengal",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://wbregistration.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://wbregistration.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "andaman and nicobar islands": {
+    "name": "Andaman and Nicobar Islands",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://onlineregistrationani.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://onlineregistrationani.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "chandigarh": {
+    "name": "Chandigarh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.chd.gov.in/NGDRS_CH/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.chd.gov.in/NGDRS_CH/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel"
+    },
+    "research_date": "2026-11-18"
+  },
+  "dadra and nagar haveli and daman and diu": {
+    "name": "Dadra and Nagar Haveli and Daman and Diu",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.dnh.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.dnh.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "delhi": {
+    "name": "Delhi",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.delhi.gov.in/NGDRS_DL/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.delhi.gov.in/NGDRS_DL/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "jammu and kashmir": {
+    "name": "Jammu and Kashmir",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.jk.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.jk.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "ladakh": {
+    "name": "Ladakh",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://ngdrs.ladakh.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://ngdrs.ladakh.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  },
+  "lakshadweep": {
+    "name": "Lakshadweep",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://lakshadweep.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://lakshadweep.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "not_listed_on_NeSL_DDE_directory_check_state_channel",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "not_listed_on_NeSL_DDE_directory_check_state_channel"
+    },
+    "research_date": "2026-11-18"
+  },
+  "puducherry": {
+    "name": "Puducherry",
+    "stamp_duty": {
+      "guidance": "Stamp duty is determined by the applicable State/UT stamp legislation, current schedule, instrument classification, consideration/value and facts. VACHAN does not calculate or certify a duty amount. Check the current Gazette and official registration/stamp portal.",
+      "source_url": "https://regnec.py.gov.in/",
+      "rule_status": "source_portal_identified_amount_not_verified"
+    },
+    "registration": {
+      "guidance": "Check the Registration Act, 1908, applicable State/UT amendments, the instrument type and transaction facts. This portal is an official discovery route; it does not establish whether this particular instrument must be registered.",
+      "source_url": "https://regnec.py.gov.in/",
+      "rule_status": "official_portal_directory_listed_instrument_requirement_not_verified"
+    },
+    "signing": {
+      "guidance": "Electronic execution must be assessed under the Information Technology Act, 2000 and its First Schedule exclusions, together with stamp and registration requirements. A demo signing flow does not apply a signature.",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/1999?locale=en",
+      "rule_status": "central_source_identified_instrument_eligibility_not_verified"
+    },
+    "sources": {
+      "registration_directory": "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php",
+      "e_stamp_directory": "https://www.nesl.co.in/states-union-territories-for-digital-e-stamping/",
+      "e_stamp_directory_status": "listed_on_NeSL_DDE_directory",
+      "registration_portal_status": "listed_by_Department_of_Land_Resources_NGDRS",
+      "digital_e_stamp_status": "listed_on_NeSL_DDE_directory"
+    },
+    "research_date": "2026-11-18"
+  }
+}

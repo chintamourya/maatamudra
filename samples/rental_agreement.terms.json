@@ -1,0 +1,92 @@
+{
+  "fingerprint": "6aec8b114222e7783084a96fd59b6e909411542b8c93ec5c70a894950d5bb43a",
+  "terms": {
+    "state": "Telangana",
+    "city": "Hyderabad",
+    "landlord_name": "Ravi Kumar",
+    "tenant_name": "Anita Rao",
+    "property_address": "Flat 302, Green Heights, Madhapur, Hyderabad",
+    "start_date": "2026-12-01",
+    "term_months": 11,
+    "monthly_rent": 22000,
+    "security_deposit": 44000,
+    "due_day": 5,
+    "notice_days": 30,
+    "grace_days": 5,
+    "late_fee_per_day": 50,
+    "default_threshold_days": 30,
+    "cure_days": 15,
+    "deposit_refund_days": 30,
+    "lock_in_months": 6,
+    "maintenance_monthly": null,
+    "annual_escalation_pct": null,
+    "contract_type": "rental_agreement"
+  },
+  "obligations": [
+    {
+      "id": "pay_rent",
+      "kind": "pay_rent",
+      "party": "tenant",
+      "clause_key": "rent",
+      "description": "Pay rent on or before day 5 of each month",
+      "rule": {
+        "amount": 22000,
+        "due_day": 5
+      }
+    },
+    {
+      "id": "late_fee",
+      "kind": "late_fee",
+      "party": "tenant",
+      "clause_key": "late_payment",
+      "description": "Pay a late fee per day after the grace period",
+      "rule": {
+        "grace_days": 5,
+        "per_day": 50
+      }
+    },
+    {
+      "id": "default_notice",
+      "kind": "default_notice",
+      "party": "landlord",
+      "clause_key": "default_cure",
+      "description": "Landlord may serve a default notice once rent is overdue for the threshold; tenant may cure within the cure period",
+      "rule": {
+        "threshold_days": 30,
+        "cure_days": 15
+      }
+    },
+    {
+      "id": "termination_notice",
+      "kind": "termination_notice",
+      "party": "both",
+      "clause_key": "termination_notice",
+      "description": "Give written notice to end the tenancy",
+      "rule": {
+        "notice_days": 30
+      }
+    },
+    {
+      "id": "lock_in",
+      "kind": "lock_in",
+      "party": "both",
+      "clause_key": "lock_in",
+      "description": "No termination during the lock-in period",
+      "rule": {
+        "months": 6
+      }
+    },
+    {
+      "id": "refund_deposit",
+      "kind": "refund_deposit",
+      "party": "landlord",
+      "clause_key": "deposit_refund",
+      "description": "Return deposit less itemised lawful deductions",
+      "rule": {
+        "amount": 44000,
+        "within_days": 30
+      }
+    }
+  ],
+  "automatic_checks": []
+}

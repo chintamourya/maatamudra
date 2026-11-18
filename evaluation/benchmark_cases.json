@@ -1,0 +1,18 @@
+{
+  "title": "VACHAN hackathon contract review benchmark",
+  "version": "0.1",
+  "research_date": "2026-11-18",
+  "status": "illustrative engineering benchmark; not lawyer-labelled or validated",
+  "cases": [
+    {"id":"rental-01","contract_type":"rental_agreement","scenario":"Lease term exceeds one year","expected_checks":["Transfer of Property Act section 107 registration review","Registration Act section 17 review","state stamp schedule check"],"legal_basis":["Transfer of Property Act 1882 s.107","Registration Act 1908 s.17"]},
+    {"id":"rental-02","contract_type":"rental_agreement","scenario":"11-month residential lease","expected_checks":["Do not assume stamp duty exemption","Check state tenancy law and execution requirements"],"legal_basis":["Applicable State/UT stamp law","Applicable State/UT tenancy law"]},
+    {"id":"service-01","contract_type":"freelance_service","scenario":"Supplier claims micro/small enterprise registration and payment term is 90 days","expected_checks":["Check MSMED Act applicability","Flag section 15 45-day maximum agreed period where applicable"],"legal_basis":["MSMED Act 2006 ss.15-16"]},
+    {"id":"employment-01","contract_type":"employment","scenario":"Post-employment non-compete clause","expected_checks":["Flag Indian Contract Act section 27 issue for legal review"],"legal_basis":["Indian Contract Act 1872 s.27"]},
+    {"id":"nda-01","contract_type":"nda","scenario":"Confidentiality clause lacks exclusions and permitted disclosures","expected_checks":["Identify missing exclusions and permitted disclosure provisions"],"legal_basis":["Contract drafting QA; transaction-specific review"]},
+    {"id":"sale-01","contract_type":"sale_purchase","scenario":"Goods description, inspection and warranty terms are missing","expected_checks":["Identify missing goods description, inspection and warranty terms"],"legal_basis":["Sale of Goods Act 1930 ss.12-17"]},
+    {"id":"partnership-01","contract_type":"partnership","scenario":"Agreement does not describe partner roles, contributions or dissolution","expected_checks":["Identify missing partner rights/duties and dissolution mechanics"],"legal_basis":["Indian Partnership Act 1932"]},
+    {"id":"loan-01","contract_type":"private_loan","scenario":"Loan agreement has no repayment dates or default process","expected_checks":["Identify missing repayment, default and security terms"],"legal_basis":["Indian Contract Act 1872; applicable state/sector law"]},
+    {"id":"ip-01","contract_type":"ip_licence","scenario":"IP assignment does not identify rights, duration or territory","expected_checks":["Flag written assignment and section 19 particulars for review"],"legal_basis":["Copyright Act 1957 s.19"]},
+    {"id":"mou-01","contract_type":"mou","scenario":"MOU does not state which clauses are binding","expected_checks":["Identify ambiguity in binding/non-binding intention"],"legal_basis":["Indian Contract Act 1872; exact drafting and facts"]}
+  ]
+}
