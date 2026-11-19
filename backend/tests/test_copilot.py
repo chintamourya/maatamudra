@@ -3,7 +3,7 @@ import json
 from fastapi.testclient import TestClient
 
 from app import deps
-from app.analysis.copilot import ClauseRewrite, ContractReview, ReviewFinding
+from app.analysis.copilot import ClauseRewrite, ContractReview, RequestedTermChange, ReviewFinding
 from app.db import Repo
 from app.main import app
 from tests.test_api import StubLLM
@@ -13,6 +13,8 @@ from tests.test_verifier import FakeKanoon
 class CopilotStubLLM(StubLLM):
     def __init__(self):
         self.change_numbers = False
+        self.change_term = False
+        self.term_value = "75"
 
     async def structured(self, system, user, schema):
         if schema is ContractReview:
@@ -33,10 +35,22 @@ class CopilotStubLLM(StubLLM):
         if schema is ClauseRewrite:
             context = json.loads(user)
             original = context["target_clause"]["text"]
+            if self.change_term:
+                return ClauseRewrite(
+                    intent="term_change",
+                    proposed_text=original,
+                    rationale="The requested notice period differs from the current agreement term.",
+                    requested_term_change=RequestedTermChange(
+                        field="notice_days",
+                        requested_value=self.term_value,
+                        rationale="Update the structured notice-days term.",
+                    ),
+                )
             proposed = original + " The parties will confirm payment details in writing."
             if self.change_numbers:
                 proposed += " The revised amount is 999999."
             return ClauseRewrite(
+                intent="wording",
                 proposed_text=proposed,
                 rationale="Makes the payment wording clearer.",
                 tradeoffs=["The parties should confirm the exact timing."],
@@ -86,3 +100,52 @@ def test_ai_studio_review_and_approved_clause_rewrite(spec):
             "suggestion_id": unsafe_body["suggestion_id"],
         })
         assert rejected.status_code == 409
+
+
+def test_ai_term_change_updates_spec_clauses_and_compiled_contract(spec):
+    spec = spec.model_copy(update={"notice_days": 60})
+    llm = CopilotStubLLM()
+    deps.services = deps.Services(llm=llm, repo=Repo(), kanoon=FakeKanoon())
+    with TestClient(app) as client:
+        created = client.post("/api/contracts", json=spec.model_dump(mode="json")).json()
+        cid = created["id"]
+        llm.change_term = True
+
+        proposal = client.post(f"/api/contracts/{cid}/copilot/rewrite", json={
+            "clause_key": "termination_notice",
+            "instruction": "75 days notice",
+        })
+        assert proposal.status_code == 200
+        change = proposal.json()["term_change"]
+        assert change["field"] == "notice_days"
+        assert change["current_value"] == 60
+        assert change["requested_value"] == 75
+        assert change["can_apply"] is True
+
+        applied = client.post(f"/api/contracts/{cid}/copilot/terms/apply", json={
+            "suggestion_id": change["suggestion_id"],
+        })
+        assert applied.status_code == 200
+        updated = applied.json()
+        assert updated["spec"]["notice_days"] == 75
+        assert updated["spec"]["provenance"]["notice_days"] == "user"
+        notice_clause = next(item for item in updated["clauses"] if item["key"] == "termination_notice")
+        assert "75 days" in notice_clause["text"]
+        assert not updated["copilot_term_suggestions"]
+        simulation = client.post(f"/api/contracts/{cid}/simulate", json={
+            "type": "early_termination",
+            "party": "tenant",
+            "notice_date": "2027-01-01",
+        })
+        assert simulation.status_code == 200
+        assert any("75-day notice expires" == event["label"] for event in simulation.json()["events"])
+
+        llm.term_value = "366"
+        invalid = client.post(f"/api/contracts/{cid}/copilot/rewrite", json={
+            "clause_key": "termination_notice",
+            "instruction": "Change notice period to 366 days",
+        })
+        assert invalid.status_code == 200
+        invalid_change = invalid.json()["term_change"]
+        assert invalid_change["can_apply"] is False
+        assert invalid_change["validation_error"]

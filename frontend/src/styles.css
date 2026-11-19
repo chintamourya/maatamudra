@@ -539,6 +539,13 @@ button.primary:hover:not(:disabled) { border-color: #0e625f; background: #0e625f
 .copilot-proposal > p { color: #526a78; font-size: 11px; line-height: 1.6; }
 .copilot-proposal details { margin: 12px 0; }
 .copilot-proposal summary { font-size: 11px; font-weight: 700; }
+.copilot-term-change { margin-top: 14px; padding: 14px; border: 1px solid #e6c982; border-radius: 13px; background: #fffaf0; }
+.copilot-term-change > p { color: #5f6470; font-size: 11px; line-height: 1.65; }
+.copilot-term-values { display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 5px 10px; align-items: baseline; padding: 10px; border-radius: 9px; background: #fff; }
+.copilot-term-values span { color: #73808b; font-size: 10px; }
+.copilot-term-values b { color: #18384b; font-size: 13px; }
+.copilot-regenerate-note { padding: 10px; border: 1px solid #ead9b9; border-radius: 9px; background: #fff; }
+.copilot-term-change .row { margin-bottom: 8px; }
 .copilot-diff { margin-top: 9px; padding: 12px; border-radius: 9px; background: #fff; color: #40586a; font: 13px/1.8 var(--serif); white-space: pre-wrap; overflow-wrap: anywhere; }
 .copilot-diff .add { background: #dff3ea; }
 .copilot-diff .del { background: #fbe6e4; }
@@ -546,4 +553,5 @@ button.primary:hover:not(:disabled) { border-color: #0e625f; background: #0e625f
 @media (max-width: 640px) {
   .copilot-section-head { align-items: flex-start; flex-direction: column; }
   .copilot-section-head .primary { width: 100%; }
+  .copilot-term-values { grid-template-columns: auto 1fr; }
 }

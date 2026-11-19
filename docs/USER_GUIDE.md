@@ -34,7 +34,7 @@ The top-right selector offers Citizen, Advocate and Business. It changes the sel
 
 ## 5. Right-hand workspace tabs
 
-- **AI Studio:** scan the whole agreement for ambiguity, contradictions, missing details and practical gaps; inspect the clauses and deterministic checks the AI used. Ask it to rewrite one clause, compare the proposed wording and apply it only after review. Proposals that change numbers cannot be applied automatically. This scan does not use external legal sources or establish legal validity.
+- **AI Studio:** scan the whole agreement for ambiguity, contradictions, missing details and practical gaps; inspect the clauses and deterministic checks the AI used. Ask it to rewrite one clause, compare the proposed wording and apply it only after review. For a requested change to a supported deal fact, such as a notice period, AI proposes a validated term update. Applying it regenerates the whole draft and clears derived review state, so use it only before signing. Wording-only rewrites cannot silently change numbers. The scan does not use external legal sources or establish legal validity.
 - **Evidence:** inspect clause-level evidence and source references. Open the original source and check whether it supports the proposition and remains current.
 - **India law:** view central-law context and the jurisdiction coverage notes. Pan-India selection does not mean every State/UT rule is comprehensively verified. Check current stamp duty, registration, tenancy, employment and sector-specific requirements locally.
 - **Negotiate & review:** run the review, inspect proposed redlines and accept or reject each change deliberately. Re-read the complete clause after every change.

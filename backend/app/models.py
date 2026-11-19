@@ -3,7 +3,7 @@ clauses, obligations and the simulator are all derived from it."""
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
-from typing import Annotated, Literal, Optional, Union
+from typing import Annotated, Any, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
 
@@ -270,12 +270,25 @@ class CopilotSuggestion(BaseModel):
     status: Literal["pending", "applied", "dismissed", "stale"] = "pending"
 
 
+class CopilotTermSuggestion(BaseModel):
+    id: str
+    field: str
+    expected_value: Any
+    proposed_value: Any
+    expected_terms: dict[str, Any]
+    expected_clause_versions: dict[str, int]
+    rationale: str
+    created_at: str = Field(default_factory=now)
+    status: Literal["pending", "applied", "dismissed", "stale"] = "pending"
+
+
 class Contract(BaseModel):
     id: str
     spec: Spec
     clauses: list[Clause] = Field(default_factory=list)
     redlines: list[Redline] = Field(default_factory=list)
     copilot_suggestions: list[CopilotSuggestion] = Field(default_factory=list)
+    copilot_term_suggestions: list[CopilotTermSuggestion] = Field(default_factory=list)
     evidence: list[Evidence] = Field(default_factory=list)
     obligations: list[Obligation] = Field(default_factory=list)
     execution: ExecutionStatus = Field(default_factory=ExecutionStatus)

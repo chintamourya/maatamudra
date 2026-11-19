@@ -59,6 +59,54 @@ async def test_intake_does_not_assume_a_default_state():
     assert "state" in REGISTRY["rental_agreement"].missing(result)
 
 
+def test_intake_api_keeps_partial_start_date_context_across_follow_up(client):
+    class PartialDateIntake:
+        async def structured(self, system, user, schema):
+            assert "every distinct fact" in system
+            if "Message:\nProperty is in Kondapur" in user:
+                return schema(city="Kondapur", property_address="Kondapur", start_date="2027-01-01")
+            assert "January 2027" in user
+            assert "exact day" in user
+            return schema(start_date="2027-01-15")
+
+    deps.services.llm = PartialDateIntake()
+    spec = sample("rental_agreement").model_copy(update={
+        "city": None, "property_address": None, "start_date": None,
+    })
+    message = "Property is in Kondapur; the tenancy starts in January 2027."
+    first_response = client.post("/api/intake", json={
+        "message": message,
+        "spec": spec.model_dump(mode="json"),
+        "previous_questions": [],
+    })
+    assert first_response.status_code == 200
+    first = first_response.json()
+    assert first["spec"]["city"] == "Kondapur"
+    assert first["spec"]["property_address"] == "Kondapur"
+    assert first["spec"]["start_date"] is None
+    date_question = next(q for q in first["questions"] if q["field"] == "start_date")
+    assert date_question["question"] == "You mentioned January 2027. What exact day should the tenancy start?"
+
+    second_response = client.post("/api/intake", json={
+        "message": "15th",
+        "spec": first["spec"],
+        "previous_questions": first["questions"],
+    })
+    assert second_response.status_code == 200
+    assert second_response.json()["spec"]["start_date"] == "2027-01-15"
+
+
+@pytest.mark.asyncio
+async def test_intake_preserves_an_explicit_first_day_of_month():
+    class ExplicitDateIntake:
+        async def structured(self, system, user, schema):
+            return schema(start_date="2027-01-01")
+
+    spec = sample("rental_agreement").model_copy(update={"start_date": None})
+    result = await extract(ExplicitDateIntake(), "Tenancy starts on 1 January 2027.", spec)
+    assert result.start_date == date(2027, 1, 1)
+
+
 @pytest.mark.parametrize("key", ["nda", "sale_purchase", "partnership", "private_loan", "ip_licence", "mou"])
 def test_common_agreement_types_require_an_explicit_state(key):
     spec = sample(key).model_copy(update={"state": None})

@@ -5,7 +5,7 @@ import json
 import uuid
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, TypeAdapter, ValidationError
 
 from ..models import Contract, now
 from ..textutil import numbers
@@ -28,10 +28,18 @@ class ContractReview(BaseModel):
     open_questions: list[str] = Field(default_factory=list, max_length=12)
 
 
+class RequestedTermChange(BaseModel):
+    field: str = Field(min_length=1, max_length=100)
+    requested_value: str = Field(min_length=1, max_length=120)
+    rationale: str = Field(max_length=500)
+
+
 class ClauseRewrite(BaseModel):
+    intent: Literal["wording", "term_change"]
     proposed_text: str = Field(min_length=1, max_length=12000)
     rationale: str = Field(max_length=800)
     tradeoffs: list[str] = Field(default_factory=list, max_length=6)
+    requested_term_change: RequestedTermChange | None = None
 
 
 REVIEW_SYSTEM = (
@@ -46,13 +54,16 @@ REVIEW_SYSTEM = (
 )
 
 REWRITE_SYSTEM = (
-    "Propose a clearer replacement for one clause in an Indian agreement. This is a draft suggestion, not legal advice. "
-    "Follow the user's instruction only to the extent it is consistent with the supplied agreement facts. Preserve every "
-    "number, amount, date, party name, defined term, and obligation from the original clause; do not add new facts, "
-    "deadlines, amounts, legal citations, or legal conclusions. Keep the scope of the clause unchanged unless the "
-    "instruction explicitly asks otherwise. If the requested change requires changing a number or a fact, keep the "
-    "original term and explain that the agreement facts should be updated first. Return the replacement text, a short "
-    "rationale, and any material tradeoffs."
+    "Handle the user's request for one clause in an Indian agreement. This is a drafting aid, not legal advice. "
+    "First classify the request. If the user asks to change an agreed deal fact or proposes a different value than the "
+    "current value (even tersely, such as '75 days notice' when the current term is 60 days; for example a notice period, price, "
+    "date, party, duration or payment term), return intent='term_change', identify the exact matching field from "
+    "editable_terms, and return the requested value without units (for example '75' for 75 days). Do not rewrite the "
+    "clause in this case; keep proposed_text exactly equal to the supplied target clause. If no exact supported field "
+    "matches, classify as wording and explain the limitation in rationale. If the user asks only for clearer wording, "
+    "return intent='wording' and no requested_term_change. Preserve every number, amount, date, party name, defined "
+    "term, and obligation from the original clause; do not add facts, legal citations, or legal conclusions. Return a "
+    "short rationale and material tradeoffs."
 )
 
 
@@ -111,7 +122,7 @@ async def review_contract(llm, contract: Contract, checks: list[dict]) -> dict:
     }
 
 
-async def rewrite_clause(llm, contract: Contract, clause_key: str, instruction: str) -> dict:
+async def rewrite_clause(llm, contract: Contract, clause_key: str, instruction: str, term_labels: dict[str, str]) -> dict:
     clause = next((item for item in contract.clauses if item.key == clause_key), None)
     if clause is None:
         raise ValueError("Clause not found")
@@ -125,11 +136,56 @@ async def rewrite_clause(llm, contract: Contract, clause_key: str, instruction: 
         "agreed_terms": contract.spec.model_dump(mode="json", exclude={"provenance"}, exclude_none=True),
         "target_clause": {"key": clause.key, "title": clause.title, "text": clause.text},
         "other_clauses_for_consistency": other_clauses,
+        "editable_terms": {
+            field: {"label": label, "current_value": contract.spec.model_dump(mode="json").get(field)}
+            for field, label in term_labels.items()
+        },
         "user_instruction": instruction.strip(),
     }
     result = await llm.structured(REWRITE_SYSTEM, json.dumps(context, ensure_ascii=False, default=str), ClauseRewrite)
+    if result.intent == "term_change":
+        change = result.requested_term_change
+        if change is None:
+            raise RuntimeError("The AI identified a term change without providing a structured value.")
+        current_terms = contract.spec.model_dump(mode="json", exclude={"provenance"})
+        response = {
+            "intent": "term_change",
+            "term_change": {
+                "field": change.field,
+                "label": term_labels.get(change.field, change.field),
+                "current_value": current_terms.get(change.field),
+                "requested_value": change.requested_value,
+                "rationale": change.rationale,
+                "can_apply": False,
+                "validation_error": None,
+            },
+        }
+        if change.field not in term_labels or change.field in ("contract_type", "provenance"):
+            response["term_change"]["validation_error"] = "The AI did not identify a supported agreement term."
+            return response
+        candidate = contract.spec.model_dump(mode="python")
+        candidate[change.field] = change.requested_value
+        try:
+            updated_spec = TypeAdapter(type(contract.spec)).validate_python(candidate)
+        except ValidationError as e:
+            response["term_change"]["validation_error"] = f"The requested value is not valid for {term_labels[change.field]}: {e.errors()[0]['msg']}"
+            return response
+        updated_value = updated_spec.model_dump(mode="json").get(change.field)
+        response["term_change"]["requested_value"] = updated_value
+        if updated_value == current_terms.get(change.field):
+            response["term_change"]["validation_error"] = "The requested value is already the current agreement term."
+            return response
+        response["term_change"]["can_apply"] = True
+        response["term_change"]["suggestion_id"] = str(uuid.uuid4())
+        response["term_change"]["expected_terms"] = current_terms
+        response["term_change"]["expected_clause_versions"] = {item.key: item.version for item in contract.clauses}
+        return response
+
+    if result.requested_term_change is not None:
+        raise RuntimeError("The AI returned a term change without classifying the request as a term change.")
     same_numbers = numbers(result.proposed_text) == numbers(clause.text)
     return {
+        "intent": "wording",
         "suggestion_id": str(uuid.uuid4()),
         "clause_key": clause.key,
         "clause_title": clause.title,

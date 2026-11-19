@@ -24,7 +24,7 @@ from .legal.intelligence import analyze_contract
 from .legal.verifier import verify_proposition
 from .llm import LLMNotConfigured
 from .extras import build_ics, fingerprint
-from .models import Contract, CopilotSuggestion, Spec, missing_fields, now
+from .models import Contract, CopilotSuggestion, CopilotTermSuggestion, Spec, missing_fields, now
 from .review.adversarial import review_contract
 from .review.playbook import get_playbook, playbook_review, triage_nda
 from .types import REGISTRY
@@ -128,13 +128,15 @@ async def types():
 class IntakeIn(BaseModel):
     message: str
     spec: dict
+    previous_questions: list[dict] = Field(default_factory=list, max_length=12)
 
 
 @app.post("/api/intake")
 async def intake(body: IntakeIn, svc: Services = Depends(get_services)):
     current = SPEC.validate_python(body.spec)
-    spec = await extract(svc.llm, body.message, current)
-    return {"spec": spec, "missing": missing_fields(spec), "questions": next_questions(spec)}
+    spec = await extract(svc.llm, body.message, current, body.previous_questions)
+    questions = next_questions(spec, message=body.message, previous_questions=body.previous_questions)
+    return {"spec": spec, "missing": missing_fields(spec), "questions": questions}
 
 
 @app.post("/api/contracts")
@@ -213,6 +215,10 @@ class CopilotApplyIn(BaseModel):
     suggestion_id: str = Field(min_length=1, max_length=100)
 
 
+class CopilotTermApplyIn(BaseModel):
+    suggestion_id: str = Field(min_length=1, max_length=100)
+
+
 @app.post("/api/contracts/{cid}/copilot/review")
 async def copilot_review(cid: str, svc: Services = Depends(get_services)):
     c = await _load(svc, cid)
@@ -233,9 +239,42 @@ async def copilot_rewrite(cid: str, body: CopilotRewriteIn, svc: Services = Depe
     if any(redline.clause_key == body.clause_key and redline.status == "pending" for redline in c.redlines):
         raise HTTPException(409, "Resolve the pending review redline for this clause before drafting an AI rewrite.")
     try:
-        proposal = await ai_rewrite_clause(svc.llm, c, body.clause_key, body.instruction)
+        proposal = await ai_rewrite_clause(
+            svc.llm, c, body.clause_key, body.instruction, REGISTRY[c.spec.contract_type].labels)
     except ValueError as e:
         raise HTTPException(404, str(e))
+    if proposal["intent"] == "term_change":
+        change = proposal["term_change"]
+        if change["can_apply"] and c.source and c.source.get("uploaded"):
+            change["can_apply"] = False
+            change["validation_error"] = "This is an uploaded document. Create a draft from the updated agreed terms instead of regenerating its clauses."
+        elif change["can_apply"] and (
+            c.execution.signed_by_parties or c.execution.stamp_duty_paid or c.execution.registration_completed
+        ):
+            change["can_apply"] = False
+            change["validation_error"] = "This agreement has an execution step recorded. Do not rewrite it; prepare an amendment for review."
+        elif change["can_apply"] and any(redline.status == "pending" for redline in c.redlines):
+            change["can_apply"] = False
+            change["validation_error"] = "Resolve pending review redlines before changing an agreed term."
+        if not change["can_apply"]:
+            change.pop("suggestion_id", None)
+            change.pop("expected_terms", None)
+            change.pop("expected_clause_versions", None)
+            return proposal
+        for existing in c.copilot_term_suggestions:
+            if existing.field == change["field"] and existing.status == "pending":
+                existing.status = "dismissed"
+        c.copilot_term_suggestions.append(CopilotTermSuggestion(
+            id=change["suggestion_id"],
+            field=change["field"],
+            expected_value=change["current_value"],
+            proposed_value=change["requested_value"],
+            expected_terms=change["expected_terms"],
+            expected_clause_versions=change["expected_clause_versions"],
+            rationale=change["rationale"],
+        ))
+        await _save(svc, c, "copilot_term_change_created", {"field": change["field"]})
+        return proposal
     for existing in c.copilot_suggestions:
         if existing.clause_key == body.clause_key and existing.status == "pending":
             existing.status = "dismissed"
@@ -255,6 +294,54 @@ async def copilot_rewrite(cid: str, body: CopilotRewriteIn, svc: Services = Depe
         "apply_allowed": proposal["apply_allowed"],
     })
     return proposal
+
+
+@app.post("/api/contracts/{cid}/copilot/terms/apply")
+async def copilot_apply_term_change(cid: str, body: CopilotTermApplyIn, svc: Services = Depends(get_services)):
+    c = await _load(svc, cid)
+    suggestion = next((item for item in c.copilot_term_suggestions
+                       if item.id == body.suggestion_id and item.status == "pending"), None)
+    if suggestion is None:
+        raise HTTPException(404, "Pending agreement-term proposal not found")
+    if c.source and c.source.get("uploaded"):
+        raise HTTPException(409, "Uploaded agreements cannot be regenerated from structured terms.")
+    if c.execution.signed_by_parties or c.execution.stamp_duty_paid or c.execution.registration_completed:
+        raise HTTPException(409, "This agreement has an execution step recorded. Prepare an amendment instead.")
+    if any(redline.status == "pending" for redline in c.redlines):
+        raise HTTPException(409, "Resolve pending review redlines before changing an agreed term.")
+
+    current_terms = c.spec.model_dump(mode="json", exclude={"provenance"})
+    clause_versions = {clause.key: clause.version for clause in c.clauses}
+    if current_terms != suggestion.expected_terms or clause_versions != suggestion.expected_clause_versions:
+        suggestion.status = "stale"
+        await _save(svc, c, "copilot_term_change_stale", {"field": suggestion.field})
+        raise HTTPException(409, "The agreement changed after this proposal. Generate a fresh term-change proposal.")
+    try:
+        updated_data = c.spec.model_dump(mode="python")
+        updated_data[suggestion.field] = suggestion.proposed_value
+        updated_data.setdefault("provenance", {})[suggestion.field] = "user"
+        updated_spec = TypeAdapter(type(c.spec)).validate_python(updated_data)
+        updated_contract = compile_contract(updated_spec, contract_id=c.id)
+    except (ValueError, KeyError) as e:
+        raise HTTPException(422, f"Could not regenerate the agreement: {e}")
+
+    updated_contract.created_at = c.created_at
+    return await _save(svc, updated_contract, "copilot_term_change_applied", {
+        "field": suggestion.field,
+        "old_value": suggestion.expected_value,
+        "new_value": suggestion.proposed_value,
+    })
+
+
+@app.post("/api/contracts/{cid}/copilot/terms/{suggestion_id}/dismiss")
+async def copilot_dismiss_term_change(cid: str, suggestion_id: str, svc: Services = Depends(get_services)):
+    c = await _load(svc, cid)
+    suggestion = next((item for item in c.copilot_term_suggestions
+                       if item.id == suggestion_id and item.status == "pending"), None)
+    if suggestion is None:
+        raise HTTPException(404, "Pending agreement-term proposal not found")
+    suggestion.status = "dismissed"
+    return await _save(svc, c, "copilot_term_change_dismissed", {"field": suggestion.field})
 
 
 @app.post("/api/contracts/{cid}/copilot/apply")
