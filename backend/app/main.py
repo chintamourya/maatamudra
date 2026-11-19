@@ -15,6 +15,7 @@ from .contracts.compiler import compile_contract
 from .contracts.intake import extract, next_questions
 from .deps import Services, get_services
 from .execution.checklist import checklist
+from .analysis.copilot import review_contract as ai_contract_review, rewrite_clause as ai_rewrite_clause
 from .documents.docx_builder import build_docx
 from .legal.kanoon import KanoonError
 from .legal.statutes import get_many
@@ -23,7 +24,7 @@ from .legal.intelligence import analyze_contract
 from .legal.verifier import verify_proposition
 from .llm import LLMNotConfigured
 from .extras import build_ics, fingerprint
-from .models import Contract, Spec, missing_fields, now
+from .models import Contract, CopilotSuggestion, Spec, missing_fields, now
 from .review.adversarial import review_contract
 from .review.playbook import get_playbook, playbook_review, triage_nda
 from .types import REGISTRY
@@ -201,6 +202,104 @@ class PlaybookReviewIn(BaseModel):
     deadline: str = "not specified"
     focus_areas: list[str] = []
     deal_context: str = ""
+
+
+class CopilotRewriteIn(BaseModel):
+    clause_key: str = Field(min_length=1, max_length=100)
+    instruction: str = Field(min_length=8, max_length=1200)
+
+
+class CopilotApplyIn(BaseModel):
+    suggestion_id: str = Field(min_length=1, max_length=100)
+
+
+@app.post("/api/contracts/{cid}/copilot/review")
+async def copilot_review(cid: str, svc: Services = Depends(get_services)):
+    c = await _load(svc, cid)
+    checks = REGISTRY[c.spec.contract_type].lint(c.spec) + consistency_check(c.spec)
+    result = await ai_contract_review(svc.llm, c, checks)
+    await svc.repo.audit(cid, "copilot_review_run", {
+        "findings": len(result["findings"]),
+        "number_integrity": result["number_integrity"],
+    })
+    return result
+
+
+@app.post("/api/contracts/{cid}/copilot/rewrite")
+async def copilot_rewrite(cid: str, body: CopilotRewriteIn, svc: Services = Depends(get_services)):
+    if len(body.instruction.strip()) < 8:
+        raise HTTPException(422, "Describe the clause change in at least 8 characters.")
+    c = await _load(svc, cid)
+    if any(redline.clause_key == body.clause_key and redline.status == "pending" for redline in c.redlines):
+        raise HTTPException(409, "Resolve the pending review redline for this clause before drafting an AI rewrite.")
+    try:
+        proposal = await ai_rewrite_clause(svc.llm, c, body.clause_key, body.instruction)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    for existing in c.copilot_suggestions:
+        if existing.clause_key == body.clause_key and existing.status == "pending":
+            existing.status = "dismissed"
+    c.copilot_suggestions.append(CopilotSuggestion(
+        id=proposal["suggestion_id"],
+        clause_key=proposal["clause_key"],
+        expected_version=proposal["expected_version"],
+        original_text=proposal["original_text"],
+        proposed_text=proposal["proposed_text"],
+        rationale=proposal["rationale"],
+        number_integrity=proposal["number_integrity"],
+        created_at=proposal["created_at"],
+    ))
+    await _save(svc, c, "copilot_rewrite_created", {
+        "clause": body.clause_key,
+        "number_integrity": proposal["number_integrity"],
+        "apply_allowed": proposal["apply_allowed"],
+    })
+    return proposal
+
+
+@app.post("/api/contracts/{cid}/copilot/apply")
+async def copilot_apply(cid: str, body: CopilotApplyIn, svc: Services = Depends(get_services)):
+    c = await _load(svc, cid)
+    suggestion = next((item for item in c.copilot_suggestions
+                       if item.id == body.suggestion_id and item.status == "pending"), None)
+    if suggestion is None:
+        raise HTTPException(404, "Pending AI suggestion not found")
+    clause = next((item for item in c.clauses if item.key == suggestion.clause_key), None)
+    if clause is None:
+        raise HTTPException(404, "Clause not found")
+    if clause.version != suggestion.expected_version or clause.text != suggestion.original_text:
+        suggestion.status = "stale"
+        await _save(svc, c, "copilot_suggestion_stale", {"clause": clause.key})
+        raise HTTPException(409, "This suggestion is out of date. Generate a fresh proposal for the current clause.")
+    if not suggestion.number_integrity:
+        raise HTTPException(409, "This proposal changes numeric terms. Update the agreed facts first; this suggestion cannot be applied.")
+    if suggestion.proposed_text.strip() == clause.text.strip():
+        raise HTTPException(409, "This proposal does not change the clause.")
+    if any(redline.clause_key == clause.key and redline.status == "pending" for redline in c.redlines):
+        raise HTTPException(409, "Resolve the pending review redline for this clause before applying an AI suggestion.")
+
+    clause.text = suggestion.proposed_text
+    clause.version += 1
+    clause.status = "revised"
+    suggestion.status = "applied"
+    for other in c.copilot_suggestions:
+        if other.clause_key == clause.key and other.status == "pending":
+            other.status = "stale"
+    return await _save(svc, c, "copilot_suggestion_applied", {
+        "clause": clause.key,
+        "version": clause.version,
+    })
+
+
+@app.post("/api/contracts/{cid}/copilot/suggestions/{suggestion_id}/dismiss")
+async def copilot_dismiss(cid: str, suggestion_id: str, svc: Services = Depends(get_services)):
+    c = await _load(svc, cid)
+    suggestion = next((item for item in c.copilot_suggestions
+                       if item.id == suggestion_id and item.status == "pending"), None)
+    if suggestion is None:
+        raise HTTPException(404, "Pending AI suggestion not found")
+    suggestion.status = "dismissed"
+    return await _save(svc, c, "copilot_suggestion_dismissed", {"clause": suggestion.clause_key})
 
 
 @app.post("/api/contracts/{cid}/playbook-review")

@@ -84,7 +84,7 @@ export default function App() {
     const r = await api.intake(msg, spec); setSpec(r.spec); setQuestions(r.questions); setMsg("");
   });
   const create = () => run("create", async () => {
-    const c = await api.create(spec); setContract(c); setSel(c.clauses[0]?.key); setTab("evidence");
+    const c = await api.create(spec); setContract(c); setSel(c.clauses[0]?.key); setTab("copilot");
   });
   const clause = contract?.clauses.find((c) => c.key === sel);
   const reset = () => { setContract(null); setAnalysis(null); setSel(null); setQuestions([]); setSpec({ contract_type: typeKey, provenance: {} }); setPaste(""); setFname(""); setFileB64(""); };
@@ -106,7 +106,7 @@ export default function App() {
   });
   const openUpload = () => run("create", async () => {
     const c = await api.uploadOpen({ spec, segments: analysis.segments, filename: fname || "pasted text" });
-    setContract(c); setSel(c.clauses[0]?.key); setTab("review");
+    setContract(c); setSel(c.clauses[0]?.key); setTab("copilot");
   });
   const dictate = () => {
     if (listening) return;
@@ -309,11 +309,12 @@ export default function App() {
               <span>{health?.case_law_source === "indiankanoon" ? "Indian Kanoon API" : health?.case_law_source === "tavily" ? "Web search · Indian Kanoon pages" : health?.case_law_source === "none" ? "Not configured" : "Checking availability"}</span>
             </div>
             <div className="tabs" role="tablist">
-              {[["evidence", "Evidence"], ["legal", "India law"], ["review", "Negotiate & review"], ["time", "Time machine"], ["ask", "Ask"], ["explain", "Explain"], ["exec", "Execution"]].map(([k, l]) => (
+              {[["copilot", "AI Studio"], ["evidence", "Evidence"], ["legal", "India law"], ["review", "Negotiate & review"], ["time", "Time machine"], ["ask", "Ask"], ["explain", "Explain"], ["exec", "Execution"]].map(([k, l]) => (
                 <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}>{l}</button>
               ))}
             </div>
             {err && <div className="err" role="alert">{err}</div>}
+            {tab === "copilot" && <CopilotStudio {...{ contract, clause, setContract, run, busy, health, setSel }} />}
             {tab === "evidence" && <Evidence {...{ contract, clause, setContract, run, busy }} />}
             {tab === "legal" && <LegalContext contract={contract} />}
             {tab === "review" && <Review {...{ contract, clause, setContract, run, busy, setSel, td }} />}
@@ -325,6 +326,127 @@ export default function App() {
           </>
         )}
       </aside>
+    </div>
+  );
+}
+
+function CopilotStudio({ contract, clause, setContract, run, busy, health, setSel }) {
+  const [scan, setScan] = useState(null);
+  const [proposal, setProposal] = useState(null);
+  const [targetKey, setTargetKey] = useState(clause?.key || contract.clauses[0]?.key || "");
+  const [instruction, setInstruction] = useState("");
+  const aiAvailable = Boolean(health?.llm_configured);
+
+  useEffect(() => {
+    setScan(null);
+    setProposal(null);
+    setInstruction("");
+    setTargetKey(contract.clauses[0]?.key || "");
+  }, [contract.id]);
+  useEffect(() => {
+    if (clause?.key) setTargetKey(clause.key);
+  }, [clause?.key]);
+
+  const review = () => run("copilot-review", async () => {
+    setScan(await api.copilotReview(contract.id));
+  });
+  const proposeRewrite = () => run("copilot-rewrite", async () => {
+    const result = await api.copilotRewrite(contract.id, targetKey, instruction);
+    setProposal(result);
+    setContract(await api.get(contract.id));
+  });
+  const applyRewrite = () => run("copilot-apply", async () => {
+    setContract(await api.copilotApply(contract.id, proposal.suggestion_id));
+    setSel(targetKey);
+    setProposal(null);
+    setScan(null);
+  });
+  const dismissRewrite = () => run("copilot-dismiss", async () => {
+    setContract(await api.copilotDismiss(contract.id, proposal.suggestion_id));
+    setProposal(null);
+  });
+  const riskClass = (priority) => priority === "high" ? "high" : priority === "medium" ? "medium" : "low";
+
+  return (
+    <div className="copilot-studio">
+      <div className="copilot-intro">
+        <div className="copilot-orb">✳</div>
+        <div><h3>AI Contract Studio</h3><p>Review the whole agreement, then refine a clause with an approval step.</p></div>
+      </div>
+      {!aiAvailable && <div className="card copilot-setup"><b>AI is not configured</b><p>Configure the model connection to run the contract scan and clause drafting. The rest of your agreement tools remain available.</p></div>}
+
+      <section className="copilot-section">
+        <div className="copilot-section-head">
+          <div><span className="copilot-step">01 · REVIEW</span><h4>Find what deserves attention</h4></div>
+          <button className="primary" disabled={!aiAvailable || !!busy} onClick={review}>
+            {busy === "copilot-review" ? "Reviewing agreement…" : scan ? "Run scan again" : "Scan agreement"}
+          </button>
+        </div>
+        <p className="muted">Checks clause clarity, contradictions, missing details, one-sided terms, and practical gaps against the terms you provided.</p>
+        {scan && <>
+          <div className="copilot-summary">
+            <Chip v={scan.overall_attention} />
+            <p>{scan.summary}</p>
+          </div>
+          {scan.findings.length === 0 && <p className="muted">No review prompts were returned. This is not a legal-validity check.</p>}
+          {scan.findings.map((finding, i) => (
+            <article className="copilot-finding" key={`${finding.title}-${i}`}>
+              <div className="copilot-finding-title"><span className="copilot-index">{String(i + 1).padStart(2, "0")}</span><b>{finding.title}</b><Chip v={riskClass(finding.priority)} /></div>
+              <p>{finding.observation}</p>
+              <p><b>Why it matters:</b> {finding.impact}</p>
+              <p><b>Suggested next step:</b> {finding.next_step}</p>
+              {finding.clause_keys.length > 0 && <div className="copilot-citations"><span>Related clauses</span>{finding.clause_keys.map((key) => {
+                const cited = contract.clauses.find((item) => item.key === key);
+                return cited ? <button key={key} onClick={() => setSel(key)}>{cited.title} ↗</button> : null;
+              })}</div>}
+              {!finding.numbers_match_source && <p className="copilot-warning">Verify figures in this finding: {finding.unmatched_numbers.join(", ")}</p>}
+            </article>
+          ))}
+          {scan.open_questions.length > 0 && <details className="card copilot-questions"><summary>Questions to resolve ({scan.open_questions.length})</summary><ul>{scan.open_questions.map((question, i) => <li key={i}>{question}</li>)}</ul></details>}
+          {scan.warnings.map((warning, i) => <p className="copilot-warning" key={i}>{warning}</p>)}
+          <details className="card copilot-trace">
+            <summary>What the AI checked</summary>
+            <p>Reviewed {scan.basis.clauses_reviewed.length} clauses and {scan.basis.deterministic_checks_included} deterministic checks. No external legal sources were used for this scan.</p>
+            <div className="copilot-citations"><span>Agreement clauses</span>{scan.basis.clauses_reviewed.map((key) => {
+              const checked = contract.clauses.find((item) => item.key === key);
+              return checked ? <button key={key} onClick={() => setSel(key)}>{checked.title} ↗</button> : null;
+            })}</div>
+            <p className="field-hint">This is an evidence-scope summary, not the model’s private reasoning. For legal sources, use Evidence and India law.</p>
+          </details>
+          {!scan.number_integrity && <p className="copilot-warning">Some figures were not found in the agreement or structural checks. Verify all amounts, dates, and periods manually.</p>}
+        </>}
+      </section>
+
+      <section className="copilot-section">
+        <div className="copilot-section-head"><div><span className="copilot-step">02 · CO-DRAFT</span><h4>Improve one clause</h4></div></div>
+        <p className="muted">Ask for clearer wording or a specific change. The AI sees this agreement’s terms and related clauses.</p>
+        <label className="field-label" htmlFor="copilot-clause">Clause to improve</label>
+        <select id="copilot-clause" value={targetKey} onChange={(e) => { setTargetKey(e.target.value); setProposal(null); }}>
+          {contract.clauses.map((item) => <option key={item.key} value={item.key}>{item.title}</option>)}
+        </select>
+        <label className="field-label" htmlFor="copilot-instruction">What should be clearer or different?</label>
+        <textarea id="copilot-instruction" rows={3} maxLength={1200} value={instruction} onChange={(e) => { setInstruction(e.target.value); setProposal(null); }} placeholder="For example: clarify when the deposit must be returned, without changing the agreed amount or deadline." />
+        <div className="row"><button className="primary" disabled={!aiAvailable || !!busy || instruction.trim().length < 8} onClick={proposeRewrite}>
+          {busy === "copilot-rewrite" ? "Drafting alternatives…" : "Draft a clause improvement"}
+        </button></div>
+        {proposal && <>
+          <div className="copilot-proposal">
+            <div className="copilot-finding-title"><b>Proposed wording · {proposal.clause_title}</b><Chip v={proposal.number_integrity ? "verified" : "high"} /></div>
+            <p><b>Why it changed:</b> {proposal.rationale}</p>
+            {proposal.tradeoffs.map((tradeoff, i) => <p className="muted" key={i}>Trade-off: {tradeoff}</p>)}
+            <details><summary>Compare current and proposed wording</summary>
+              <div className="copilot-diff">{wordDiff(proposal.original_text, proposal.proposed_text).map((part, i) => <span key={i} className={part.t}>{part.w} </span>)}</div>
+            </details>
+            {!proposal.number_integrity && <p className="copilot-warning">This proposal changes numeric terms, so it cannot be applied. Update the agreed facts first and request a new draft.</p>}
+            {proposal.apply_allowed && <p className="field-hint">Applying replaces this exact clause text. Review it carefully; you can still inspect or revise the agreement afterward.</p>}
+            <div className="row">
+              {proposal.apply_allowed && <button className="primary" disabled={!!busy} onClick={applyRewrite}>{busy === "copilot-apply" ? "Applying…" : "Use this exact rewrite"}</button>}
+              <button disabled={!!busy} onClick={dismissRewrite}>{busy === "copilot-dismiss" ? "Discarding…" : "Discard proposal"}</button>
+            </div>
+          </div>
+        </>}
+      </section>
+      <p className="legal-note"><span>ⓘ</span>AI suggestions are drafts, not legal advice. Check every clause and get qualified Indian legal review before signing. State-specific rules are not verified by the AI scan.</p>
     </div>
   );
 }
@@ -355,7 +477,7 @@ function UserGuide({ onClose }) {
     start: <><h3>End-to-end journey</h3><ol className="guide-list"><li><b>Choose a workspace role.</b> Citizen, Advocate or Business changes the context for the demo; it is not an access-control boundary.</li><li><b>Choose your task.</b> Use <em>Create new</em> to draft from a brief, or <em>Review a document</em> to inspect an existing agreement.</li><li><b>Select an agreement type and jurisdiction.</b> Pick the closest template and the relevant Indian State/UT when asked.</li><li><b>Describe the deal in plain language.</b> Include parties, scope, payment, dates, deliverables, termination, deposit and other terms that matter. Do not assume missing terms.</li><li><b>Answer follow-up questions.</b> Review the extracted fields and fill any required details before generating the draft.</li><li><b>Inspect every clause and source.</b> Use the right-hand tabs to test terms, examine evidence, review legal context and negotiate changes.</li><li><b>Export and complete execution outside this demo.</b> Download the DOCX, inspect the final version with the parties/lawyer, and arrange appropriate stamping, signing and registration independently.</li></ol><div className="guide-callout">Recommended demo path: create a rental agreement using synthetic details, inspect the deposit and termination clauses, run a review, simulate a scenario, then export the DOCX.</div></>,
     create: <><h3>Create a new agreement</h3><ol className="guide-list"><li>Open <b>Create new</b> in the centre pane.</li><li>Choose one of the nine starters: rental, freelance/service, employment, NDA, sale/purchase, partnership, private loan, IP licence or MOU. Use the search field if needed.</li><li>Choose the State/UT that governs the transaction. If unsure, pause and seek advice rather than selecting a state arbitrarily.</li><li>Enter the facts in the plain-language intake box. State who is involved, what is being exchanged, money and due dates, duration, deliverables, warranties, confidentiality, IP ownership, termination and dispute handling where relevant.</li><li>Submit the brief. Read the follow-up questions; answer them with actual agreed facts. Do not invent details to clear a required field.</li><li>Select <b>Generate agreement</b>. The centre pane displays the clauses. Select a clause to inspect it and use the right pane for evidence and review tools.</li></ol><p>Tip: use the provided synthetic sample agreements for a quick demo. Confirm all names, amounts, dates, schedules and annexures before relying on an exported draft.</p></>,
     review: <><h3>Review an existing agreement</h3><ol className="guide-list"><li>Choose <b>Review a document</b>.</li><li>Upload a supported PDF, DOCX or TXT file, or paste the agreement text if the interface offers that option.</li><li>Scanned PDFs use OCR fallback when text extraction is insufficient. OCR can misread names, numbers, dates, tables, stamps and signatures; compare extracted text against every original page.</li><li>Run analysis. Read the agreement type, clause segments, risk flags, missing basics and items worth considering.</li><li>Provide clarifications where prompted, then open the review workspace if available.</li><li>Use clause selection and evidence tabs to inspect concerns. Treat every flagged issue as a prompt for review, not a legal conclusion.</li></ol><p>Never upload Aadhaar, PAN, bank details, medical information, confidential client files or unredacted live contracts to the public hackathon deployment.</p></>,
-    workspace: <><h3>Right-hand agreement tools</h3><ul className="guide-feature-list"><li><b>Evidence:</b> inspect clause-level support, source material and verification status. A citation must be checked for relevance and current validity.</li><li><b>India law:</b> view central-law context and State/UT coverage notes. Coverage is not a complete state-law opinion; stamp duty, registration, tenancy and employment rules need current local verification.</li><li><b>Negotiate & review:</b> run the two-sided review, then run the playbook-based review after entering your side, deadline, focus areas and deal context. Inspect GREEN/YELLOW/RED findings, business impact, negotiation priorities and fallback redlines. For NDA agreements, run the separate NDA pre-screen. Explicitly accept or reject redlines only after checking the full clause in context.</li><li><b>Time machine:</b> change scenario inputs to see how the agreement's own terms may affect outcomes. It is an illustrative calculation, not a prediction or legal ruling.</li><li><b>Ask:</b> ask questions about the current agreement. Check the answer against the clause text and cited material.</li><li><b>Explain:</b> request a plain-language explanation in a supported Indian language. Translation is machine-generated and is not certified legal translation.</li><li><b>Execution:</b> review extracted obligations and checklist items; mark only steps you have actually completed. Signing hand-off is simulated in this build.</li></ul></>,
+    workspace: <><h3>Right-hand agreement tools</h3><ul className="guide-feature-list"><li><b>AI Studio:</b> scan for ambiguity, contradictions, missing details and practical gaps; inspect the clauses and deterministic checks included. Ask for a clause rewrite, compare the proposed wording and apply it only after review. Proposals that change numbers cannot be applied automatically. The scan does not use external legal sources.</li><li><b>Evidence:</b> inspect clause-level support, source material and verification status. A citation must be checked for relevance and current validity.</li><li><b>India law:</b> view central-law context and State/UT coverage notes. Coverage is not a complete state-law opinion; stamp duty, registration, tenancy and employment rules need current local verification.</li><li><b>Negotiate & review:</b> run the two-sided review, then run the playbook-based review after entering your side, deadline, focus areas and deal context. Inspect GREEN/YELLOW/RED findings, business impact, negotiation priorities and fallback redlines. For NDA agreements, run the separate NDA pre-screen. Explicitly accept or reject redlines only after checking the full clause in context.</li><li><b>Time machine:</b> change scenario inputs to see how the agreement's own terms may affect outcomes. It is an illustrative calculation, not a prediction or legal ruling.</li><li><b>Ask:</b> ask questions about the current agreement. Check the answer against the clause text and cited material.</li><li><b>Explain:</b> request a plain-language explanation in a supported Indian language. Translation is machine-generated and is not certified legal translation.</li><li><b>Execution:</b> review extracted obligations and checklist items; mark only steps you have actually completed. Signing hand-off is simulated in this build.</li></ul></>,
     personas: <><h3>Three workspace perspectives</h3><div className="guide-role"><b>Citizen</b><p>Understand a personal agreement, create a first draft from agreed facts, review a document and identify questions to take to a lawyer.</p></div><div className="guide-role"><b>Advocate</b><p>Use the drafting and document-review studio as an assistive starting point; inspect legal sources, clauses, risks and proposed redlines. Independently verify authorities and provide professional review.</p></div><div className="guide-role"><b>Business</b><p>Prepare repeatable commercial agreement drafts, review supplier/customer terms, examine obligations and use the execution checklist to coordinate next steps.</p></div><p>The role switch is a UI persona selector only. It does not create separate accounts, permissions, workspaces or document isolation.</p></>,
     execution: <><h3>Exports and execution checklist</h3><ul className="guide-feature-list"><li><b>Export .docx:</b> download the editable agreement draft for final review.</li><li><b>Calendar:</b> export dated obligations/reminders where available and import them into a calendar tool.</li><li><b>Terms JSON:</b> inspect structured obligation data for downstream workflows.</li><li><b>Execution checklist:</b> use the checklist to track practical steps such as review, stamping, signing and registration. A checked box is only a user-recorded status.</li><li><b>Signing simulation:</b> demonstrates a provider hand-off shape only. It does not apply a legally recognised electronic signature or call a live CCA-licensed provider.</li></ul><div className="guide-callout">Before signing: verify party identity, authority to sign, final version, stamp duty, witness/notary requirements where applicable, registration requirements and execution formalities for the specific transaction and State/UT.</div></>,
     demo: <><h3>Demo integrations and limitations</h3><ul className="guide-feature-list"><li><b>Demo identity flow:</b> returns a simulated identity/role result only; no real authentication or authorisation.</li><li><b>Signing-provider hand-off:</b> simulated only; no real eSign, Aadhaar eKYC, DSC validation or signature certificate.</li><li><b>Translation:</b> LLM-based translation across supported Scheduled Indian Languages; not a certified translation.</li><li><b>OCR:</b> Tesseract/PyMuPDF extraction is fallible; manually verify all extracted content.</li><li><b>Market viability:</b> open Workspace tools for curated market research, editable scenarios, revenue assumptions, competitors and validation sprints. Forecasts are hypotheses, not actual traction or guaranteed revenue.</li></ul><p className="guide-warning">Maatamudra is a hackathon prototype, not a lawyer, law firm, government portal, e-stamp service or production-secure document vault. Do not treat a generated draft as legally valid without independent review.</p></>,

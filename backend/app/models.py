@@ -258,11 +258,24 @@ class ExecutionStatus(BaseModel):
     notes: dict[str, str] = Field(default_factory=dict)
 
 
+class CopilotSuggestion(BaseModel):
+    id: str
+    clause_key: str
+    expected_version: int
+    original_text: str
+    proposed_text: str
+    rationale: str
+    number_integrity: bool
+    created_at: str = Field(default_factory=now)
+    status: Literal["pending", "applied", "dismissed", "stale"] = "pending"
+
+
 class Contract(BaseModel):
     id: str
     spec: Spec
     clauses: list[Clause] = Field(default_factory=list)
     redlines: list[Redline] = Field(default_factory=list)
+    copilot_suggestions: list[CopilotSuggestion] = Field(default_factory=list)
     evidence: list[Evidence] = Field(default_factory=list)
     obligations: list[Obligation] = Field(default_factory=list)
     execution: ExecutionStatus = Field(default_factory=ExecutionStatus)

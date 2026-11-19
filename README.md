@@ -10,6 +10,7 @@ Maatamudra is an open-source hackathon prototype for AI-assisted agreement creat
 - Nine agreement starters: rental, freelance/service, employment, NDA, sale/purchase, partnership, private loan, IP licence and MOU.
 - Upload and review of text-based PDF, DOCX and TXT agreements.
 - Clause-level evidence retrieval and case-law citation checks.
+- AI Studio for proactive agreement review, source-traceable findings, and approval-based clause rewrite proposals.
 - Two-sided adversarial review with a neutral proposed redline.
 - Deterministic consistency checks, consequence simulation, obligation extraction and exports.
 - Pan-India catalogue of all 28 States and 8 Union Territories.
