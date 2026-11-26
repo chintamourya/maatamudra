@@ -140,7 +140,7 @@ LABEL_SYSTEM = ("You label numbered segments of an Indian {kind} against a fixed
 async def classify_type(llm, text: str) -> str:
     g = await llm.structured(TYPE_SYSTEM.format(keys=", ".join(REGISTRY)), text[:6000], TypeGuess)
     if g.contract_type not in REGISTRY:
-        raise ValueError("This looks like an agreement type Vachan does not support yet (rental, freelancer/service, employment).")
+        raise ValueError("This looks like an agreement type Maatamudra does not support yet (rental, freelance/service, employment, NDA, sale, partnership, loan, IP licence, MOU).")
     return g.contract_type
 
 

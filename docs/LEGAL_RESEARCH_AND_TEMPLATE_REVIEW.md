@@ -1,10 +1,10 @@
-# VACHAN legal research and template review (hackathon scope)
+# MAATAMUDRA legal research and template review (hackathon scope)
 
 Research snapshot: 18 November 2026. This is an AI-assisted research and engineering review, not an advocate's opinion or lawyer certification.
 
 ## What is verified in this release
 
-1. The Department of Land Resources / NGDRS State-UT directory was checked and the 36 current States/UTs in the VACHAN catalogue were matched to the directory. The directory lists no registration portal for Nagaland or Sikkim; those entries intentionally have a null portal rather than an invented URL.
+1. The Department of Land Resources / NGDRS State-UT directory was checked and the 36 current States/UTs in the MAATAMUDRA catalogue were matched to the directory. The directory lists no registration portal for Nagaland or Sikkim; those entries intentionally have a null portal rather than an invented URL.
 2. NeSL's public Digital Document Execution (DDE) directory was checked. 30 of the 36 jurisdiction entries appear in that directory. The JSON records whether each jurisdiction appears. `not_listed_on_NeSL_DDE_directory_check_state_channel` does not mean e-stamping is unavailable; it means only that the jurisdiction was not listed on that particular NeSL DDE page. Other state/SHCIL/GRAS channels may apply.
 3. Central law sources are linked to India Code or the relevant Government of India department. The Indian Contract Act and IT Act have direct India Code records.
 4. The Ministry of Labour and Employment lists the four Labour Codes and Central Rules. PIB states the four Codes were made effective from 21 November 2025. State rule commencement and transitional applicability must still be checked for the establishment and facts.

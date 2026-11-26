@@ -1,8 +1,8 @@
-# VACHAN hackathon scope and judging alignment
+# MAATAMUDRA hackathon scope and judging alignment
 
 ## Product statement
 
-VACHAN is an open-source Indian contract intelligence prototype that helps citizens, advocates and businesses create, understand, review and negotiate common agreements using conversational AI and explainable legal issue spotting.
+MAATAMUDRA is an open-source Indian contract intelligence prototype that helps citizens, advocates and businesses create, understand, review and negotiate common agreements using conversational AI and explainable legal issue spotting.
 
 ## Judging alignment
 

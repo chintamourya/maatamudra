@@ -1,8 +1,8 @@
-# VACHAN User Guide — End-to-End
+# MAATAMUDRA User Guide — End-to-End
 
 ## 1. Before you begin
 
-VACHAN is an assistive contract drafting and review prototype for India. Use synthetic or redacted information in the public demo. Do not upload Aadhaar, PAN, bank details, medical information, confidential client documents or live contracts containing personal data. A role selector is not authentication. A generated draft is not legal advice or a guarantee of enforceability.
+MAATAMUDRA is an assistive contract drafting and review prototype for India. Use synthetic or redacted information in the public demo. Do not upload Aadhaar, PAN, bank details, medical information, confidential client documents or live contracts containing personal data. A role selector is not authentication. A generated draft is not legal advice or a guarantee of enforceability.
 
 ## 2. Choose a workspace perspective
 
@@ -78,4 +78,4 @@ Use a fictional rental scenario and synthetic names/addresses:
 
 ## 9. Known limitations
 
-VACHAN is a hackathon prototype and is not a production-secure document vault, law firm, government portal, e-stamp service, registration service or certified signing platform. Do not rely on generated text without professional review. Check current official sources for law and local formalities.
+MAATAMUDRA is a hackathon prototype and is not a production-secure document vault, law firm, government portal, e-stamp service, registration service or certified signing platform. Do not rely on generated text without professional review. Check current official sources for law and local formalities.

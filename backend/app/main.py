@@ -40,8 +40,9 @@ import logging
 from contextlib import asynccontextmanager
 
 from .db import Repo
+from .addin import router as addin_router, mount_addin
 
-log = logging.getLogger("vachan")
+log = logging.getLogger("maatamudra")
 
 
 @asynccontextmanager
@@ -57,7 +58,7 @@ async def lifespan(_app):
     await svc.repo.close()
 
 
-app = FastAPI(title="Vachan API", version="0.2.0", lifespan=lifespan)
+app = FastAPI(title="Maatamudra API", version="0.2.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
 
 
@@ -575,7 +576,7 @@ class DemoAuthIn(BaseModel):
 async def demo_auth_session(body: DemoAuthIn):
     if body.role not in {"citizen", "advocate", "business"}:
         raise HTTPException(422, "Choose citizen, advocate or business.")
-    return {"status":"SIMULATED_ONLY", "provider":"VACHAN demo identity flow", "user_label":body.user_label[:80], "role":body.role, "steps":["User selects a role", "Demo consent screen shown", "Demo session identifier generated (not an authenticated account)"], "real_authentication":False, "notice":"No identity verification, account authentication or access-control protection has occurred. Do not upload confidential documents to a public demo."}
+    return {"status":"SIMULATED_ONLY", "provider":"MAATAMUDRA demo identity flow", "user_label":body.user_label[:80], "role":body.role, "steps":["User selects a role", "Demo consent screen shown", "Demo session identifier generated (not an authenticated account)"], "real_authentication":False, "notice":"No identity verification, account authentication or access-control protection has occurred. Do not upload confidential documents to a public demo."}
 
 @app.post("/api/demo/signing/session")
 async def demo_signing_session(body: dict):
@@ -635,6 +636,10 @@ async def export_docx(cid: str, svc: Services = Depends(get_services)):
 async def audit(cid: str, svc: Services = Depends(get_services)):
     return await svc.repo.audit_for(cid)
 
+
+# Word add-in: manifest + API router, then its static task-pane files (must come before the catch-all "/" mount).
+app.include_router(addin_router)
+mount_addin(app)
 
 # Serve the built frontend when present (single-container deployment).
 _static = Path(__file__).resolve().parents[1] / "static"

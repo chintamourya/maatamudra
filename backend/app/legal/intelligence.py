@@ -37,7 +37,7 @@ def analyze_contract(spec, clauses: list, state_catalogue: list[dict]) -> dict:
                 "A lease exceeding one year can engage section 107 of the Transfer of Property Act, 1882 and compulsory-registration provisions. Confirm the exact instrument, applicable amendments and execution facts.",
                 ["Transfer of Property Act, 1882, section 107", "Registration Act, 1908, section 17"], action="Verify the applicable state rules and registration procedure with the relevant Registration Department before execution."))
         findings.append(_finding("rental_stamp_duty", "execution_risk", "medium", "State stamp duty must be checked",
-            f"Stamp duty depends on the instrument and applicable state/UT law. VACHAN does not calculate or certify the amount for {state or 'an unspecified jurisdiction'}.",
+            f"Stamp duty depends on the instrument and applicable state/UT law. MAATAMUDRA does not calculate or certify the amount for {state or 'an unspecified jurisdiction'}.",
             ["Applicable stamp legislation and state/UT amendments"], action="Check the current official state/UT stamp schedule or e-stamping portal. Do not infer that an 11-month term is stamp-duty exempt."))
     if ct in {"freelance_service", "sale_purchase"}:
         findings.append(_finding("msme_status_check", "statutory_risk", "medium", "Check micro/small enterprise supplier status",
@@ -56,7 +56,7 @@ def analyze_contract(spec, clauses: list, state_catalogue: list[dict]) -> dict:
             "The supplied jurisdiction did not match the application's India state/UT catalogue.", ["Applicable State/UT legislation"]))
     else:
         findings.append(_finding("state_rules_coverage", "coverage_gap", "info", f"{state}: official state portal identified; instrument rules need verification",
-            "VACHAN has identified the Government of India Department of Land Resources registration portal directory entry and checked whether this jurisdiction appears in NeSL's digital document execution e-stamping directory. This verifies official discovery routes, not stamp-duty rates, rent-control applicability, exemptions or every instrument-specific rule.",
+            "MAATAMUDRA has identified the Government of India Department of Land Resources registration portal directory entry and checked whether this jurisdiction appears in NeSL's digital document execution e-stamping directory. This verifies official discovery routes, not stamp-duty rates, rent-control applicability, exemptions or every instrument-specific rule.",
             ["Applicable State/UT stamp legislation and Gazette notifications", "Registration Department portal"],
             source=(selected.get("registration_portal") or "https://ngdrs.gov.in/NGDRS_Website/state_ut_links.php"),
             action="Open the official Registration Department portal and confirm the current Gazette/schedule for this instrument before execution."))

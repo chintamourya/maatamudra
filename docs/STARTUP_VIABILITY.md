@@ -1,18 +1,18 @@
-# VACHAN startup viability — research baseline
+# MAATAMUDRA startup viability — research baseline
 
 **Research date:** 18 November 2026  
 **Purpose:** directional product and commercial thesis for a hackathon prototype. This is not audited market sizing, investment advice or a forecast.
 
 ## Thesis
 
-VACHAN should not position itself as a generic AI contract generator or attempt to replace enterprise CLM, legal research databases, signing providers or lawyers. The initial wedge is an affordable India-first workflow for service MSMEs, freelancers and early-stage businesses: intake → draft → explain → review → signing-provider hand-off → obligations and renewal reminders.
+MAATAMUDRA should not position itself as a generic AI contract generator or attempt to replace enterprise CLM, legal research databases, signing providers or lawyers. The initial wedge is an affordable India-first workflow for service MSMEs, freelancers and early-stage businesses: intake → draft → explain → review → signing-provider hand-off → obligations and renewal reminders.
 
 The product's defensibility must come from repeated workflow usage, trusted jurisdiction/source provenance, integrations and a distribution channel—not from an LLM wrapper or a large template catalogue alone.
 
 ## Market evidence and caveats
 
 - The Ministry of MSME Udyam factsheet reports 5.61 crore Udyam registrations and separately 4.55 crore Udyam Assist Platform registrations on 18 Nov 2026. These are registration counts, not proof of active enterprises, unique buyers, internet access, contract frequency or software willingness to pay. Do not add them and call the result unique businesses.
-- Mordor Intelligence estimates India's broad legal-services market at US$2.49B in 2025. This is not the addressable market for VACHAN.
+- Mordor Intelligence estimates India's broad legal-services market at US$2.49B in 2025. This is not the addressable market for MAATAMUDRA.
 - IMARC estimates India's contract-lifecycle-management software market at US$218.2M in 2025. This is a commercial research estimate with proprietary methodology; use only as a directional category signal.
 - A 2025 SignDesk-sponsored survey release reports manual dependencies and partial digital adoption among 500+ corporate legal professionals. Treat it as vendor-sponsored, not a representative national survey.
 - DAKSH's technology landscape (using a 336-startup sample identified for 2021) describes a supply-side ecosystem skewed toward professional workflow tools; the sample is dated and categories may overlap.
@@ -29,7 +29,7 @@ The product's defensibility must come from repeated workflow usage, trusted juri
 
 - Small-business contract workflow is fragmented between template generation, lawyers, e-sign tools, storage and manual reminders.
 - Most lightweight drafting experiences do not carry the user through post-signature obligations and renewals.
-- Generic AI products risk overstating legal validity or flattening state-specific rules; VACHAN should show verification scope and lawyer escalation.
+- Generic AI products risk overstating legal validity or flattening state-specific rules; MAATAMUDRA should show verification scope and lawyer escalation.
 - Multilingual intake/explanations can widen access, but translated legal language requires number/defined-term integrity checks and human QA.
 - Users need provenance labels distinguishing AI-generated, source-supported, lawyer-reviewed, provider-signed and legally verified outputs.
 
@@ -69,4 +69,4 @@ Indicative pricing tests: Free; Solo ₹499/month; Pro ₹1,499/month; Team ₹4
 
 ## Go/no-go recommendation
 
-Do not scale paid acquisition until VACHAN has (a) one narrowly defined customer segment, (b) five or more paid pilots, (c) repeat usage after the first agreement, (d) measurable time/risk reduction, (e) a qualified legal-review process for priority templates and jurisdictions, and (f) verified unit economics. Enterprise CLM and broad citizen legal assistance should remain later-stage tracks, not the first commercial wedge.
+Do not scale paid acquisition until MAATAMUDRA has (a) one narrowly defined customer segment, (b) five or more paid pilots, (c) repeat usage after the first agreement, (d) measurable time/risk reduction, (e) a qualified legal-review process for priority templates and jurisdictions, and (f) verified unit economics. Enterprise CLM and broad citizen legal assistance should remain later-stage tracks, not the first commercial wedge.

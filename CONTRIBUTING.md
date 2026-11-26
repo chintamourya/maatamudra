@@ -1,6 +1,6 @@
-# Contributing to VACHAN
+# Contributing to MAATAMUDRA
 
-VACHAN is an open-source hackathon prototype. Contributions are welcome in contract templates, accessibility, Indian-language UX, test coverage, document extraction, legal-source metadata and explainable rule checks.
+MAATAMUDRA is an open-source hackathon prototype. Contributions are welcome in contract templates, accessibility, Indian-language UX, test coverage, document extraction, legal-source metadata and explainable rule checks.
 
 ## Contribution principles
 

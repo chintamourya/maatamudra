@@ -49,6 +49,11 @@ npm run dev
 
 The Vite app uses the same-origin API by default. For a separate backend, set `VITE_API_URL` to its base URL.
 
+## Word add-in (new)
+
+Review agreements inside Microsoft Word: clause concerns, comments, and balanced rewrites applied as tracked changes.
+It is served by the same backend at `/addin`; get the manifest at `/addin/manifest.xml`. See [docs/WORD_ADDIN.md](docs/WORD_ADDIN.md).
+
 ## Useful API routes
 
 - `GET /api/health`
@@ -62,6 +67,7 @@ The Vite app uses the same-origin API by default. For a separate backend, set `V
 - `POST /api/contracts/{id}/evidence/{clause_key}`
 - `GET /api/contracts/{id}/lint`
 - `GET /api/contracts/{id}/docx`
+- `GET /addin/manifest.xml` and `POST /api/addin/rewrite` — Word add-in
 
 Interactive API documentation is available at `/docs` when the backend is running.
 

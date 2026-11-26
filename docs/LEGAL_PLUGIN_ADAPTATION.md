@@ -1,4 +1,4 @@
-# VACHAN legal workflow improvements — reference adaptation
+# MAATAMUDRA legal workflow improvements — reference adaptation
 
 ## Reference
 
@@ -8,12 +8,12 @@ https://github.com/anthropics/knowledge-work-plugins/tree/e91a134584eb798bac7fb0
 
 The upstream legal plugin describes playbook-based contract review, NDA pre-screening,
 GREEN/YELLOW/RED risk routing, business-impact analysis, fallback redlines, escalation,
-and a configurable local playbook. VACHAN adapts these workflow concepts to its own
+and a configurable local playbook. MAATAMUDRA adapts these workflow concepts to its own
 FastAPI/Pydantic architecture and Indian agreement workflows. It does not install or run
 Claude/Cowork commands, Anthropic connectors, or MCP servers, and this implementation
 is not a port of Anthropic's runtime.
 
-## What VACHAN now implements
+## What MAATAMUDRA now implements
 
 - `backend/data/legal_playbook.json`: editable default negotiation positions, risk rubric,
 escalation triggers and NDA checklist. Defaults are illustrative and expressly not legal
@@ -35,7 +35,7 @@ it is not approval, enforceability or legal-validity certification.
 3. YELLOW and RED require human review/escalation. No output auto-accepts a clause.
 4. The LLM receives the supplied contract text and context, and must not invent facts,
 statutory authorities, prices, dates or negotiated positions.
-5. Indian statutory/case-law verification remains in VACHAN's existing India law and
+5. Indian statutory/case-law verification remains in MAATAMUDRA's existing India law and
 Evidence modules. This review feature does not substitute foreign-law playbooks for
 Indian law or imply that all State/UT rules are covered.
 6. The default positions must be tailored to the user's organisation, contract category,
@@ -56,7 +56,7 @@ substantive findings still require human review.
 
 The reference legal plugin documents `/review-contract` (playbook-based review, context,
 clause deviations, redlines and business impact) and `/triage-nda` (GREEN/YELLOW/RED
-pre-screening). VACHAN maps those concepts to API endpoints and browser UI instead of
+pre-screening). MAATAMUDRA maps those concepts to API endpoints and browser UI instead of
 slash commands. See the upstream README and contract-review skill for the workflow model:
 https://github.com/anthropics/knowledge-work-plugins/blob/main/legal/README.md
 https://github.com/anthropics/knowledge-work-plugins/blob/main/legal/skills/contract-review/SKILL.md

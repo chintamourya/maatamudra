@@ -16,24 +16,23 @@ an explanation of AI workflows and models, a demo video and a pitch deck.
 | Pitch deck | outline below | you build (ask me to generate the .pptx) |
 
 ## Project description (about 150 words, edit freely)
-Vachan turns a plain-language description into an Indian agreement (rental, freelancer/service, or employment) built only from
+Maatamudra turns a plain-language description into an Indian agreement (nine types: rental, freelance/service, employment, NDA, sale, partnership, loan, IP licence, MOU) built only from
 the terms the user gives. Risky clauses are checked against real Indian Kanoon judgments; a citation is marked verified only
 if the source resolves, the passage comes from the API, a model confirms it supports the point, and its quote is found in that
 passage. Each clause is reviewed from both parties' sides by separate AI roles and a neutral reviewer, producing a redline the
 user accepts or rejects. A deterministic "time machine" shows what the agreement's own terms say when rent or an invoice is late,
 when someone terminates, or when an employee leaves during a bond. The output is a Word file with a legal-evidence annexure, a
-calendar of key dates, machine-readable terms and a tamper-evident fingerprint. Vachan never shows a "legally valid" badge: stamp,
+calendar of key dates, machine-readable terms and a tamper-evident fingerprint. Maatamudra never shows a "legally valid" badge: stamp,
 registration and signing steps tick only when a human records evidence.
 
 ## How it maps to the scoring
+Weights below are from the live event page (re-check before submitting; the organizers may change them).
 | Criterion (weight) | What to show |
 |---|---|
-| AI Utilization Depth (25%) | Show structured multilingual intake, two-sided review, grounded contract Q&A, and how code rejects unsupported citations, figures and unsafe redlines |
-| Product Innovation (20%) | Show the consequence map, deterministic contract time machine, evidence-linked review, and explicit human control over changes |
-| Execution Speed (15%) | Demonstrate a draft from sample details, immediate deterministic checks and exports; cached legal research reduces repeat calls |
-| Startup Viability (20%) | Explain the initial users (individuals, small businesses and reviewing lawyers), the drafting-to-review workflow, and the lawyer-in-the-loop trust model; avoid unsupported market-size claims |
-| UI/UX & Experience (10%) | Walk through the guided journey: choose a use case, specify state, review clauses, test scenarios and find evidence |
-| Pitch & Storytelling (10%) | Tell one concrete agreement story from uncertainty to an informed decision; clearly state what is verified and what still needs a lawyer |
+| Technical Implementation (40%) | Deployed app + Word add-in on one backend; structured LLM output validated by Pydantic; deterministic consistency checks; citation verification against Indian Kanoon; number-integrity guard that blocks unsafe rewrites; 113 passing tests; benchmark results |
+| Innovation (30%) | Review a received agreement inside Word and accept a balanced redline as a tracked change; two-sided adversarial review; consequence map / time machine; India-aware legal context with explicit coverage gaps |
+| User Experience (20%) | Word task pane (no context switch), guided web workspace, English/Hindi/Telugu explanations, visible verification status on every finding |
+| Impact (10%) | Citizens, MSMEs and advocates; lawyer-in-the-loop trust model; honest scope statement; avoid unsupported market-size claims |
 
 ## 5-minute demo script
 1. **0:00-0:30, problem.** A freelancer gets a service agreement with a 24-month non-compete and open-ended liability. She cannot tell what is risky.

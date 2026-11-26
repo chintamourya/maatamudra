@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Maatamudra for Word</title>
+  <link rel="stylesheet" href="taskpane.css"/>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="logo">M</div>
+    <div>
+      <h1>మాటముద్ర · Maatamudra</h1>
+      <p class="tag">Agreements. Commitments. Clarity.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="card controls">
+      <label for="ctype">Agreement type</label>
+      <select id="ctype"><option value="">Auto-detect</option></select>
+
+      <div id="pasteBox" hidden>
+        <label for="paste">Not running inside Word — paste agreement text to try it</label>
+        <textarea id="paste" rows="6" placeholder="Paste at least a few clauses…"></textarea>
+      </div>
+
+      <button id="btnReview" class="primary">Review this agreement</button>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="results" hidden>
+      <div id="summary" class="chips"></div>
+      <div class="toolbar">
+        <button id="btnCommentAll" class="ghost">Add all concerns as comments</button>
+      </div>
+
+      <h2>Clause concerns</h2>
+      <div id="concerns"></div>
+
+      <h2>Checks on the stated terms</h2>
+      <div id="checks"></div>
+
+      <h2>Missing or unstated</h2>
+      <div id="gaps"></div>
+    </section>
+  </main>
+
+  <footer>
+    Review prompts and drafting aids, <b>not legal advice</b>. Nothing is changed in your document unless you click
+    <i>Apply</i>, and applied edits are Word tracked changes you can reject. Use synthetic or redacted agreements in the demo.
+  </footer>
+
+  <script src="taskpane.js"></script>
+</body>
+</html>

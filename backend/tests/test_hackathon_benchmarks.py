@@ -1,4 +1,4 @@
-"""Small transparent benchmark for deterministic VACHAN legal issue spotting."""
+"""Small transparent benchmark for deterministic MAATAMUDRA legal issue spotting."""
 from types import SimpleNamespace
 from app.legal.jurisdictions import list_jurisdictions
 from app.legal.intelligence import analyze_contract

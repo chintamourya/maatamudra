@@ -11,9 +11,9 @@ Run locally first: `docker compose up --build` then open http://localhost:8000.
 
 ## 1. Push to GitHub (required for submission)
 ```bash
-git init && git add . && git commit -m "Vachan"
+git init && git add . && git commit -m "Maatamudra"
 git branch -M main
-git remote add origin https://github.com/<you>/vachan.git
+git remote add origin https://github.com/<you>/maatamudra.git
 git push -u origin main
 ```
 
@@ -21,12 +21,12 @@ git push -u origin main
 Check each flag against `az containerapp --help` if a command errors; the CLI changes.
 ```bash
 az login
-az group create -n vachan-rg -l centralindia
-az acr create -g vachan-rg -n <uniqueacrname> --sku Basic --admin-enabled true
-az acr build -r <uniqueacrname> -t vachan:latest .          # builds in the cloud from the Dockerfile
-az containerapp env create -g vachan-rg -n vachan-env -l centralindia
-az containerapp create -g vachan-rg -n vachan --environment vachan-env \
-  --image <uniqueacrname>.azurecr.io/vachan:latest \
+az group create -n maatamudra-rg -l centralindia
+az acr create -g maatamudra-rg -n <uniqueacrname> --sku Basic --admin-enabled true
+az acr build -r <uniqueacrname> -t maatamudra:latest .          # builds in the cloud from the Dockerfile
+az containerapp env create -g maatamudra-rg -n maatamudra-env -l centralindia
+az containerapp create -g maatamudra-rg -n maatamudra --environment maatamudra-env \
+  --image <uniqueacrname>.azurecr.io/maatamudra:latest \
   --registry-server <uniqueacrname>.azurecr.io \
   --registry-username <uniqueacrname> \
   --registry-password "$(az acr credential show -n <uniqueacrname> --query 'passwords[0].value' -o tsv)" \
@@ -36,7 +36,7 @@ az containerapp create -g vachan-rg -n vachan --environment vachan-env \
              AZURE_OPENAI_API_VERSION=2024-12-01-preview AZURE_OPENAI_DEPLOYMENT=<deployment> \
              LLM_REASONING_EFFORT=low DATABASE_URL=secretref:dburl TAVILY_API_KEY=secretref:tvkey
 # add INDIANKANOON_API_TOKEN as another secret if you have a token
-az containerapp show -g vachan-rg -n vachan --query properties.configuration.ingress.fqdn -o tsv
+az containerapp show -g maatamudra-rg -n maatamudra --query properties.configuration.ingress.fqdn -o tsv
 ```
 That last command prints your demo URL. `--min-replicas 1` avoids a cold start during judging.
 
