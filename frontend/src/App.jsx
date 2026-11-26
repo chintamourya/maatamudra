@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api } from "./api.js";
 import { wordDiff } from "./diff.js";
 import { LANGS, canListen, listen, speak } from "./voice.js";
@@ -12,6 +12,10 @@ const HEADLINES = {
 };
 const PROV = { inferred: "worked out", suggested_default: "suggested", document: "from document" };
 const money = (k, v) => (k === "owner" ? v : `₹${Number(v).toLocaleString("en-IN")}`);
+const DRAFTS_KEY = "maatamudra:drafts:v1";
+const ACTIVE_DRAFT_KEY = "maatamudra:active-draft:v1";
+const PERSONA_KEY = "maatamudra:persona:v1";
+const makeDraftId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 const TYPE_PRESENTATION = {
   rental_agreement: ["⌂", "Home & tenancy"],
   freelance_service: ["↗", "Freelance, consulting & services"],
@@ -36,6 +40,13 @@ const INDIA_STATES = [
 export default function App() {
   const [types, setTypes] = useState([]);
   const [persona, setPersona] = useState("citizen");
+  const [drafts, setDrafts] = useState([]);
+  const draftsRef = useRef([]);
+  const draftMessageRef = useRef(null);
+  const [activeDraftId, setActiveDraftId] = useState(null);
+  const [draftsReady, setDraftsReady] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(true);
+  const [checksOpen, setChecksOpen] = useState(true);
   const [typeQuery, setTypeQuery] = useState("");
   const [health, setHealth] = useState(null);
   const [healthError, setHealthError] = useState("");
@@ -67,6 +78,82 @@ export default function App() {
     api.types().then(setTypes).catch((e) => setErr(e.message));
     api.health().then(setHealth).catch((e) => setHealthError(e.message));
   }, []);
+  useEffect(() => {
+    let active = true;
+    const restore = async () => {
+      try {
+        const storedDrafts = JSON.parse(window.localStorage.getItem(DRAFTS_KEY) || "[]");
+        if (!Array.isArray(storedDrafts)) throw new Error("Saved drafts are in an unreadable format.");
+        const availableDrafts = storedDrafts.filter((draft) => draft && typeof draft.id === "string");
+        draftsRef.current = availableDrafts;
+        setDrafts(availableDrafts);
+        const savedPersona = window.localStorage.getItem(PERSONA_KEY);
+        if (["citizen", "advocate", "business"].includes(savedPersona)) setPersona(savedPersona);
+        const selectedId = window.localStorage.getItem(ACTIVE_DRAFT_KEY);
+        const selectedDraft = availableDrafts.find((draft) => draft.id === selectedId);
+        if (selectedDraft) {
+          setActiveDraftId(selectedDraft.id);
+          setPersona(selectedDraft.persona || savedPersona || "citizen");
+          setTypeKey(selectedDraft.typeKey || "rental_agreement");
+          setSpec(selectedDraft.spec || { contract_type: selectedDraft.typeKey || "rental_agreement", provenance: {} });
+          setMsg(selectedDraft.message || "");
+          setQuestions(selectedDraft.questions || []);
+          setMode(selectedDraft.mode || "draft");
+          if (selectedDraft.contractId) {
+            try {
+              const savedContract = await api.get(selectedDraft.contractId);
+              if (active) {
+                setContract(savedContract);
+                setSel(savedContract.clauses[0]?.key);
+                setTab("copilot");
+              }
+            } catch (e) {
+              if (active) setErr(`Could not reopen the saved agreement: ${e.message}`);
+            }
+          }
+        } else {
+          setActiveDraftId(makeDraftId());
+        }
+      } catch (e) {
+        if (active) {
+          setErr(`Could not load saved drafts: ${e.message}`);
+          setActiveDraftId(makeDraftId());
+        }
+      } finally {
+        if (active) setDraftsReady(true);
+      }
+    };
+    restore();
+    return () => { active = false; };
+  }, []);
+  useEffect(() => {
+    if (!draftsReady || !activeDraftId) return;
+    try {
+      const type = types.find((item) => item.key === typeKey);
+      const party = spec.landlord_name || spec.tenant_name || spec.employer_name || spec.employee_name ||
+        spec.client_name || spec.freelancer_name || spec.party_a || spec.party_b;
+      const saved = {
+        id: activeDraftId,
+        title: `${type?.title || typeKey}${party ? ` · ${party}` : ""}`,
+        typeKey,
+        persona,
+        spec,
+        message: msg,
+        questions,
+        mode,
+        contractId: contract?.id || draftsRef.current.find((draft) => draft.id === activeDraftId)?.contractId || null,
+        updatedAt: new Date().toISOString(),
+      };
+      const nextDrafts = [saved, ...draftsRef.current.filter((draft) => draft.id !== activeDraftId)].slice(0, 30);
+      window.localStorage.setItem(DRAFTS_KEY, JSON.stringify(nextDrafts));
+      window.localStorage.setItem(ACTIVE_DRAFT_KEY, activeDraftId);
+      window.localStorage.setItem(PERSONA_KEY, persona);
+      draftsRef.current = nextDrafts;
+      setDrafts(nextDrafts);
+    } catch (e) {
+      setErr(`Could not save this draft on this device: ${e.message}`);
+    }
+  }, [draftsReady, activeDraftId, persona, typeKey, spec, msg, questions, mode, contract, types]);
   const td = types.find((t) => t.key === typeKey);
   const visibleTypes = types.filter((type) => {
     const [_, subtitle] = TYPE_PRESENTATION[type.key] || ["", ""];
@@ -77,7 +164,10 @@ export default function App() {
     setBusy(label); setErr("");
     try { return await fn(); } catch (e) { setErr(e.message); } finally { setBusy(""); }
   };
+  const hasDraftContent = () => Boolean(contract || analysis || msg.trim() || questions.length ||
+    Object.keys(spec).some((key) => key !== "contract_type" && key !== "provenance"));
   const pickType = (key) => {
+    if (hasDraftContent()) setActiveDraftId(makeDraftId());
     setTypeKey(key); setSpec({ contract_type: key, provenance: {} }); setQuestions([]); setContract(null); setSel(null); setTab("evidence");
   };
   const sendIntake = () => run("intake", async () => {
@@ -87,8 +177,46 @@ export default function App() {
     const c = await api.create(spec); setContract(c); setSel(c.clauses[0]?.key); setTab("copilot");
   });
   const clause = contract?.clauses.find((c) => c.key === sel);
-  const reset = () => { setContract(null); setAnalysis(null); setSel(null); setQuestions([]); setSpec({ contract_type: typeKey, provenance: {} }); setPaste(""); setFname(""); setFileB64(""); };
+  const reset = (forceNewDraft = false) => {
+    if (forceNewDraft || hasDraftContent()) setActiveDraftId(makeDraftId());
+    setContract(null); setAnalysis(null); setSel(null); setQuestions([]); setMsg("");
+    setSpec({ contract_type: typeKey, provenance: {} }); setPaste(""); setFname(""); setFileB64("");
+  };
   const switchMode = (m) => { reset(); setMode(m); setErr(""); };
+  const startNewDraft = () => {
+    setMode("draft");
+    reset(true);
+    setErr("");
+    revealDraftEditor();
+  };
+  const revealDraftEditor = () => {
+    window.requestAnimationFrame(() => {
+      draftMessageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  };
+  const openDraft = (draft) => {
+    setActiveDraftId(draft.id);
+    setPersona(draft.persona || "citizen");
+    setTypeKey(draft.typeKey || "rental_agreement");
+    setSpec(draft.spec || { contract_type: draft.typeKey || "rental_agreement", provenance: {} });
+    setMsg(draft.message || "");
+    setQuestions(draft.questions || []);
+    setMode(draft.mode || "draft");
+    setAnalysis(null);
+    setPaste("");
+    setFname("");
+    setFileB64("");
+    setContract(null);
+    setSel(null);
+    setErr("");
+    revealDraftEditor();
+    if (draft.contractId) run("restore", async () => {
+      const savedContract = await api.get(draft.contractId);
+      setContract(savedContract);
+      setSel(savedContract.clauses[0]?.key);
+      setTab("copilot");
+    });
+  };
   const pickFile = (f) => {
     if (!f) return;
     setFname(f.name);
@@ -139,7 +267,7 @@ export default function App() {
 
   const missingBasics = analysis?.gaps?.missing_basics || [];
   return (
-    <div className="app">
+    <div className={`app${detailsOpen ? "" : " details-collapsed"}${checksOpen ? "" : " checks-collapsed"}`}>
       <header className="top">
         <div className="brand" aria-label="మాటముద్ర MAATAMUDRA"><span className="brand-mark">మ</span><span><b>మాటముద్ర</b><small>AGREEMENTS. COMMITMENTS. CLARITY.</small></span></div>
         <div className="top-status" aria-live="polite">
@@ -152,7 +280,10 @@ export default function App() {
           <div className="workspace-tools-menu">
             <div className="persona-switch" aria-label="Workspace mode">
               {[ ["citizen", "Citizen"], ["advocate", "Advocate"], ["business", "Business"] ].map(([key, label]) =>
-                <button key={key} className={persona === key ? "on" : ""} onClick={() => setPersona(key)}>{label}</button>)}
+                <button key={key} className={persona === key ? "on" : ""} onClick={(event) => {
+                  setPersona(key);
+                  event.currentTarget.closest("details").open = false;
+                }}>{label}</button>)}
             </div>
             <button className="market-launch" onClick={openMarketResearch}>Market research &amp; revenue ↗</button>
             <button className="tool-menu-button" onClick={async () => { setDemoIdentityBusy(true); setErr(""); try { setDemoIdentity(await api.demoAuth("Hackathon participant", persona)); } catch (e) { setErr(e.message); } finally { setDemoIdentityBusy(false); } }}>{demoIdentityBusy ? "Simulating…" : "Demo identity flow"}</button>
@@ -169,8 +300,20 @@ export default function App() {
       {guideOpen && <UserGuide onClose={() => setGuideOpen(false)} />}
       {marketOpen && <MarketResearchDashboard data={marketData} loading={marketLoading} error={marketError} onClose={() => setMarketOpen(false)} onRefresh={refreshMarketResearch} />}
 
-      <section className="pane" aria-label="Details">
-        <div className="section-kicker"><span className="kicker-line" /> YOUR AGREEMENT</div>
+      <section className={`pane pane-details${detailsOpen ? "" : " pane-hidden"}`} aria-label="Details">
+        <div className="pane-title-row"><div className="section-kicker"><span className="kicker-line" /> YOUR AGREEMENT</div><button className="pane-close" onClick={() => setDetailsOpen(false)} aria-label="Hide details panel" title="Hide details panel">−</button></div>
+        <div className="draft-history">
+          <div className="draft-history-heading"><b>Saved drafts</b><button onClick={startNewDraft}>New draft +</button></div>
+          <p>Stored on this browser only; not synced to an account. Uploaded files aren’t saved.</p>
+          <div className="draft-history-list">
+            {drafts.map((draft) => (
+              <button key={draft.id} className={`draft-history-item${draft.id === activeDraftId ? " active" : ""}`} aria-current={draft.id === activeDraftId ? "true" : undefined} onClick={() => openDraft(draft)}>
+                <span>{draft.title || "Untitled draft"}</span><small>{draft.id === activeDraftId ? "Editing" : draft.contractId ? "Generated agreement" : "In progress"} · {new Date(draft.updatedAt).toLocaleString()}</small>
+              </button>
+            ))}
+            {drafts.length === 0 && <span className="draft-history-empty">Your drafts will appear here as you work.</span>}
+          </div>
+        </div>
         <div className="modes" role="tablist" aria-label="Mode">
           <button role="tab" aria-selected={mode === "draft"} onClick={() => switchMode("draft")}><span>✳</span> Create new</button>
           <button role="tab" aria-selected={mode === "upload"} onClick={() => switchMode("upload")}><span>↗</span> Review a document</button>
@@ -187,7 +330,6 @@ export default function App() {
             </label>
             <textarea rows={6} value={paste} onChange={(e) => { setPaste(e.target.value); setFileB64(""); setFname(""); }} placeholder="…or paste the agreement text here" />
             <div className="row"><button className="primary" disabled={busy || (!fileB64 && paste.trim().length < 80)} onClick={analyze}>{busy === "analyze" ? "Reading the agreement…" : "Check this agreement"}</button></div>
-            {err && <div className="err" role="alert">{err}</div>}
           </>
         )}
 
@@ -215,7 +357,7 @@ export default function App() {
                 {INDIA_STATES.map((state) => <option key={state} value={state}>{state}</option>)}
               </select>
               <p className="field-hint">Select the State or Union Territory relevant to your agreement. Central-law issue spotting is available; local amendments, stamp duty and registration rules need current verification. Maatamudra never invents a duty amount.</p>
-              <textarea rows={mode === "upload" ? 3 : 5} value={msg} onChange={(e) => setMsg(e.target.value)}
+              <textarea ref={draftMessageRef} rows={mode === "upload" ? 3 : 5} value={msg} onChange={(e) => setMsg(e.target.value)}
                 placeholder={mode === "upload" ? "Add or correct a detail, e.g. the notice period is 30 days" : "Describe the arrangement in your language. For example: I am renting my 2BHK flat in Hyderabad for ₹22,000 a month for 11 months with a two-month deposit."} />
               <div className="row">
                 <button className="primary" disabled={!msg || busy} onClick={mode === "upload" ? refine : sendIntake}>{busy === "intake" ? "Reading…" : "Add details"}</button>
@@ -224,7 +366,6 @@ export default function App() {
               </div>
               {mode === "draft" && <div className="row"><button className="quiet-button" onClick={() => { td && setSpec(td.sample); setQuestions([]); }}>Try a sample agreement <span>↗</span></button></div>}
             </>)}
-            {err && mode === "draft" && <div className="err" role="alert">{err}</div>}
             {questions.length > 0 && <div className="card"><b>Still needed</b>{questions.map((q) => <p key={q.field}>{q.question}</p>)}</div>}
             <h3 className="subheading">Your details <span>{td ? `${Object.keys(td.labels).filter((k) => spec[k] != null).length} added` : ""}</span></h3>
             {td && Object.entries(td.labels).filter(([k]) => spec[k] != null).map(([k, l]) => (
@@ -240,7 +381,12 @@ export default function App() {
         )}
       </section>
 
-      <main className="pane" aria-label="Agreement">
+      <main className="pane pane-main" aria-label="Agreement">
+        <div className="workspace-controls">
+          {!detailsOpen && <button onClick={() => setDetailsOpen(true)}>Show details</button>}
+          {!checksOpen && <button onClick={() => setChecksOpen(true)}>Show checks</button>}
+        </div>
+        {err && <div className="err global-error" role="alert">{err}</div>}
         {contract ? (
           <div className="doc">
             <div className="document-heading"><div><div className="section-kicker"><span className="kicker-line" /> THE AGREEMENT</div><h2>{td?.title}</h2></div><span className="chip pending">{contract.source?.uploaded ? "Your document · under review" : "Draft · not signed"}</span></div>
@@ -289,7 +435,8 @@ export default function App() {
         </div>}
       </main>
 
-      <aside className="pane" aria-label="Checks">
+      <aside className={`pane pane-checks${checksOpen ? "" : " pane-hidden"}`} aria-label="Checks">
+        <div className="pane-title-row"><div className="section-kicker"><span className="kicker-line" /> CHECKS &amp; GUIDANCE</div><button className="pane-close" onClick={() => setChecksOpen(false)} aria-label="Hide checks panel" title="Hide checks panel">−</button></div>
         {!contract ? <div className="aside-welcome">
           <div className="section-kicker"><span className="kicker-line" /> BUILT FOR TRUST</div>
           <h3>Nothing happens behind your back.</h3>
@@ -313,15 +460,14 @@ export default function App() {
                 <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}>{l}</button>
               ))}
             </div>
-            {err && <div className="err" role="alert">{err}</div>}
             {tab === "copilot" && <CopilotStudio {...{ contract, clause, setContract, run, busy, health, setSel }} />}
-            {tab === "evidence" && <Evidence {...{ contract, clause, setContract, run, busy }} />}
+            {tab === "evidence" && <Evidence {...{ contract, clause, setContract, run, busy, setErr }} />}
             {tab === "legal" && <LegalContext contract={contract} />}
-            {tab === "review" && <Review {...{ contract, clause, setContract, run, busy, setSel, td }} />}
-            {tab === "time" && <TimeMachine {...{ contract, run, busy, td }} />}
+            {tab === "review" && <Review {...{ contract, clause, setContract, run, busy, setSel, td, setErr }} />}
+            {tab === "time" && <TimeMachine {...{ contract, run, busy, td, setErr }} />}
             {tab === "ask" && <Ask {...{ contract, run, busy, setSel }} />}
             {tab === "explain" && <Explain {...{ contract, run, busy }} />}
-            {tab === "exec" && <Execution {...{ contract, setContract, run }} />}
+            {tab === "exec" && <Execution {...{ contract, setContract, run, setErr }} />}
             <p className="legal-note"><span>ⓘ</span> Assistive draft, not legal advice. Confirm state rules and legal conclusions with a qualified lawyer.</p>
           </>
         )}
@@ -345,6 +491,7 @@ function CopilotStudio({ contract, clause, setContract, run, busy, health, setSe
     setInstruction("");
     setTargetKey(contract.clauses[0]?.key || "");
   }, [contract.id]);
+  useEffect(() => { setScan(null); }, [contract.updated_at]);
   useEffect(() => {
     if (clause?.key) setTargetKey(clause.key);
   }, [clause?.key]);
@@ -623,6 +770,7 @@ function CMap({ map }) {
 function Ask({ contract, run, busy, setSel }) {
   const [q, setQ] = useState("");
   const [res, setRes] = useState(null);
+  useEffect(() => { setQ(""); setRes(null); }, [contract.id, contract.updated_at]);
   const ask = (text) => run("ask", async () => { setRes(await api.ask(contract.id, text)); });
   const chips = ["What happens if I pay late?", "Can either side end this early, and what does it cost?", "Which clause is the riskiest for me?"];
   return (
@@ -648,6 +796,7 @@ function Explain({ contract, run, busy }) {
   const [lang, setLang] = useState("English");
   const [res, setRes] = useState(null);
   const [note, setNote] = useState("");
+  useEffect(() => { setRes(null); setNote(""); }, [contract.id, contract.updated_at]);
   const go = () => run("explain", async () => { setNote(""); setRes(await api.explain(contract.id, lang)); });
   const say = (it) => setNote(speak([it.plain, it.you_must, it.watch_out].filter(Boolean).join(". "), res.speech_lang));
   return (
@@ -668,9 +817,16 @@ function Explain({ contract, run, busy }) {
   );
 }
 
-function Evidence({ contract, clause, setContract, run, busy }) {
+function Evidence({ contract, clause, setContract, run, busy, setErr }) {
   const [statutes, setStatutes] = useState({});
-  useEffect(() => { api.statutes(contract.id).then(setStatutes).catch(() => {}); }, [contract.id]);
+  useEffect(() => {
+    let active = true;
+    setStatutes({});
+    api.statutes(contract.id)
+      .then((result) => { if (active) setStatutes(result); })
+      .catch((e) => { if (active) setErr(e.message); });
+    return () => { active = false; };
+  }, [contract.id, contract.updated_at, setErr]);
   if (!clause) return null;
   const ev = contract.evidence.filter((e) => e.clause_key === clause.key);
   const gather = () => run("ev", async () => { await api.evidence(contract.id, clause.key); setContract(await api.get(contract.id)); });
@@ -708,7 +864,17 @@ function LegalContext({ contract }) {
   const [translated, setTranslated] = useState("");
   const [translationCheck, setTranslationCheck] = useState(null);
   const [translating, setTranslating] = useState(false);
-  useEffect(() => { api.legalIntelligence(contract.id).then(setReport).catch((e) => setErr(e.message)); }, [contract.id, contract.updated_at]);
+  useEffect(() => {
+    let active = true;
+    setReport(null);
+    setErr("");
+    setTranslated("");
+    setTranslationCheck(null);
+    api.legalIntelligence(contract.id)
+      .then((result) => { if (active) setReport(result); })
+      .catch((e) => { if (active) setErr(e.message); });
+    return () => { active = false; };
+  }, [contract.id, contract.updated_at]);
   const translateReport = async () => {
     setTranslating(true); setTranslated("");
     try { const text = (report.findings || []).map((f) => `${f.title}\n${f.message}\nLegal basis: ${(f.legal_basis || []).join(", ")}`).join("\n\n");
@@ -741,8 +907,8 @@ function LegalContext({ contract }) {
   </>;
 }
 
-function Review({ contract, clause, setContract, run, busy, setSel, td }) {
-  const [lint, setLint] = useState([]);
+function Review({ contract, clause, setContract, run, busy, setSel, td, setErr }) {
+  const [lint, setLint] = useState(null);
   const [side, setSide] = useState("customer / buyer");
   const [deadline, setDeadline] = useState("");
   const [focus, setFocus] = useState("Liability, indemnity, termination, payment and data protection");
@@ -750,11 +916,23 @@ function Review({ contract, clause, setContract, run, busy, setSel, td }) {
   const [pbResult, setPbResult] = useState(null);
   const [ndaResult, setNdaResult] = useState(null);
   const [playbook, setPlaybook] = useState(null);
-  useEffect(() => { api.playbook().then(setPlaybook).catch(() => {}); }, []);
+  useEffect(() => { setPbResult(null); setNdaResult(null); }, [contract.id, contract.updated_at]);
+  useEffect(() => {
+    let active = true;
+    api.playbook().then((result) => { if (active) setPlaybook(result); }).catch((e) => { if (active) setErr(e.message); });
+    return () => { active = false; };
+  }, [setErr]);
   const contractText = (contract.clauses || []).map((c) => `${c.title}\n${c.text}`).join("\n\n");
   const runPlaybook = () => run("playbook", async () => setPbResult(await api.playbookReview(contract.id, { side, deadline: deadline || "not specified", focus_areas: focus.split(",").map(x => x.trim()).filter(Boolean), deal_context: dealContext || "not provided" })));
   const runNda = () => run("nda", async () => setNdaResult(await api.ndaTriage(contractText)));
-  useEffect(() => { api.lint(contract.id).then(setLint).catch(() => {}); }, [contract.id, contract.updated_at]);
+  useEffect(() => {
+    let active = true;
+    setLint(null);
+    api.lint(contract.id)
+      .then((result) => { if (active) setLint(result); })
+      .catch((e) => { if (active) setErr(e.message); });
+    return () => { active = false; };
+  }, [contract.id, contract.updated_at, setErr]);
   const reds = contract.redlines;
   const r = reds.find((x) => x.clause_key === clause?.key);
   const decide = (d) => run("decide", async () => setContract(await api.decide(contract.id, r.clause_key, d)));
@@ -762,8 +940,9 @@ function Review({ contract, clause, setContract, run, busy, setSel, td }) {
   return (
     <>
       <h3>Automatic checks</h3>
-      {lint.length === 0 && <p className="muted">Nothing flagged.</p>}
-      {lint.map((f, i) => (
+      {lint === null && <p className="muted">Refreshing automatic checks…</p>}
+      {lint?.length === 0 && <p className="muted">Nothing flagged.</p>}
+      {lint?.map((f, i) => (
         <button key={i} className="card" style={{ display: "block", width: "100%", textAlign: "left" }} onClick={() => setSel(f.clause_key)}>
           <Chip v={f.severity} /> {f.message}
         </button>
@@ -809,7 +988,7 @@ function Review({ contract, clause, setContract, run, busy, setSel, td }) {
   );
 }
 
-function TimeMachine({ contract, run, busy, td }) {
+function TimeMachine({ contract, run, busy, td, setErr }) {
   const scenarios = td?.scenarios || [];
   const [idx, setIdx] = useState(0);
   const sc = scenarios[idx];
@@ -818,7 +997,15 @@ function TimeMachine({ contract, run, busy, td }) {
   const [out, setOut] = useState(null);
   useEffect(() => { setIdx(0); setVals(defaults(scenarios[0])); setOut(null); }, [td?.key]);
   const [cmap, setCmap] = useState(null);
-  useEffect(() => { api.map(contract.id).then(setCmap).catch(() => {}); }, [contract.id, contract.updated_at]);
+  useEffect(() => {
+    let active = true;
+    setCmap(null);
+    setOut(null);
+    api.map(contract.id)
+      .then((result) => { if (active) setCmap(result); })
+      .catch((e) => { if (active) setErr(e.message); });
+    return () => { active = false; };
+  }, [contract.id, contract.updated_at, setErr]);
   if (!sc) return <div className="card"><b>Scenario testing is coming soon for this agreement type.</b><p className="muted">No dates or amounts are simulated here; use the written terms and ask a lawyer to review the consequences.</p></div>;
   const change = (i) => { setIdx(i); setVals(defaults(scenarios[i])); setOut(null); };
   const go = () => run("sim", async () => {
@@ -863,19 +1050,28 @@ function TimeMachine({ contract, run, busy, td }) {
   );
 }
 
-function Execution({ contract, setContract, run }) {
+function Execution({ contract, setContract, run, setErr }) {
   const [ex, setEx] = useState(null);
   const [notes, setNotes] = useState({});
   const [signingDemo, setSigningDemo] = useState(null);
   const [signingBusy, setSigningBusy] = useState(false);
-  useEffect(() => { api.execution(contract.id).then(setEx); }, [contract.id, contract.updated_at]);
+  useEffect(() => {
+    let active = true;
+    setEx(null);
+    setNotes({});
+    setSigningDemo(null);
+    api.execution(contract.id)
+      .then((result) => { if (active) setEx(result); })
+      .catch((e) => { if (active) setErr(e.message); });
+    return () => { active = false; };
+  }, [contract.id, contract.updated_at, setErr]);
   const stepFor = { stamp_duty: "stamp_duty_verified", registration: "registration_completed", signing: "signed_by_parties", lawyer: "legal_review_completed" };
   if (!ex) return null;
   if (!ex.supported) return <div className="err">{ex.message}</div>;
   return (
     <>
       <p className="muted">{ex.disclaimer} A step is ticked only when you record the evidence.</p>
-      <div className="card"><b>Digital signing provider hand-off (simulated)</b><p className="muted">This demonstrates where an authorized eSign provider would be connected. It does not authenticate signers or apply a signature.</p><button onClick={async () => { setSigningBusy(true); try { setSigningDemo(await api.demoSigning(contract.id)); } catch (e) { /* surfaced by normal app errors */ } finally { setSigningBusy(false); } }}>{signingBusy ? "Simulating provider flow…" : "Preview signing workflow"}</button>{signingDemo && <><p><b>{signingDemo.status}</b></p><ol>{signingDemo.steps.map((s,i)=><li key={i}>{s}</li>)}</ol><p className="field-hint">{signingDemo.notice}</p></>}</div>
+      <div className="card"><b>Digital signing provider hand-off (simulated)</b><p className="muted">This demonstrates where an authorized eSign provider would be connected. It does not authenticate signers or apply a signature.</p><button onClick={async () => { setSigningBusy(true); try { setSigningDemo(await api.demoSigning(contract.id)); } catch (e) { setErr(e.message); } finally { setSigningBusy(false); } }}>{signingBusy ? "Simulating provider flow…" : "Preview signing workflow"}</button>{signingDemo && <><p><b>{signingDemo.status}</b></p><ol>{signingDemo.steps.map((s,i)=><li key={i}>{s}</li>)}</ol><p className="field-hint">{signingDemo.notice}</p></>}</div>
       {ex.items.map((it) => (
         <div className="card" key={it.id}>
           <b>{it.title}</b> <Chip v={it.done ? "accepted" : it.rule_status} />
