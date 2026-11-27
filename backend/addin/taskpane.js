@@ -281,8 +281,12 @@
           .insertComment("Maatamudra: " + s.concern + " (review prompt, not legal advice)");
         n++;
       }
+      await ctx.sync();
+    });
+    setStatus(n + " comment" + (n === 1 ? "" : "s") + " added.");
+  }
 
-      function updateContractSetup() {
+  function updateContractSetup() {
         const missing = (state.result && state.result.missing) || [];
         $("extractedTerms").replaceChildren(
           outputCard("Extracted terms · verify names, amounts, dates and obligations", state.result && state.result.spec || {})
@@ -656,10 +660,6 @@
           await ctx.sync();
         });
       }
-      await ctx.sync();
-    });
-    setStatus(n + " comment" + (n === 1 ? "" : "s") + " added.");
-  }
 
   async function suggest(seg, instruction, holder) {
     holder.replaceChildren(el("p", "muted", "Drafting a balanced rewrite…"));

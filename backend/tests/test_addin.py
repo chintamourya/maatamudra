@@ -45,7 +45,10 @@ def test_taskpane_assets_are_served():
     assert "Maatamudra" in html
     assert html.index('id="contractSetup"') < html.index('id="concerns"')
     assert 'id="btnShowDraft"' in html
-    assert c.get("/addin/taskpane.js").status_code == 200
+    js_response = c.get("/addin/taskpane.js")
+    assert js_response.status_code == 200
+    js = js_response.text
+    assert js.index('setStatus(n + " comment"') < js.index("function updateContractSetup()")
     assert c.get("/addin/icon-80.png").status_code == 200
 
 
