@@ -45,12 +45,18 @@ class KanoonClient:
             return cached
         if not settings.kanoon_token:
             raise KanoonError("No cached response and INDIANKANOON_API_TOKEN is not set.")
-        async with httpx.AsyncClient(timeout=30) as client:
-            r = await client.post(f"{BASE}{path}", params=params,
-                                  headers={"Authorization": f"Token {settings.kanoon_token}", "Accept": "application/json"})
+        try:
+            async with httpx.AsyncClient(timeout=30) as client:
+                r = await client.post(f"{BASE}{path}", params=params,
+                                      headers={"Authorization": f"Token {settings.kanoon_token}", "Accept": "application/json"})
+        except httpx.HTTPError as e:
+            raise KanoonError("Indian Kanoon request failed. Check source availability and credentials.") from e
         if r.status_code != 200:
             raise KanoonError(f"Indian Kanoon {path} returned {r.status_code}")
-        data = r.json()
+        try:
+            data = r.json()
+        except ValueError as e:
+            raise KanoonError("Indian Kanoon returned an invalid response.") from e
         await self.repo.cache_set(key, data)
         return data
 
@@ -60,14 +66,21 @@ class KanoonClient:
         cached = await self.repo.cache_get(key)
         if cached is not None:
             return cached
-        async with httpx.AsyncClient(timeout=30) as client:
-            r = await client.post(TAVILY_URL, headers={"Authorization": f"Bearer {settings.tavily_key}"}, json={
-                "query": query, "search_depth": settings.tavily_depth, "max_results": 8,
-                "include_domains": ["indiankanoon.org"]})
+        try:
+            async with httpx.AsyncClient(timeout=30) as client:
+                r = await client.post(TAVILY_URL, headers={"Authorization": f"Bearer {settings.tavily_key}"}, json={
+                    "query": query, "search_depth": settings.tavily_depth, "max_results": 8,
+                    "include_domains": ["indiankanoon.org"]})
+        except httpx.HTTPError as e:
+            raise KanoonError("Tavily request failed. Check source availability and credentials.") from e
         if r.status_code != 200:
             raise KanoonError(f"Tavily search returned {r.status_code}")
+        try:
+            results = r.json().get("results", [])
+        except (ValueError, AttributeError) as e:
+            raise KanoonError("Tavily returned an invalid response.") from e
         docs, seen = [], set()
-        for item in r.json().get("results", []):
+        for item in results:
             m = _DOC.search(item.get("url", ""))
             if not m or m.group(1) in seen:
                 continue  # keep only judgment pages

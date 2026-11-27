@@ -159,9 +159,17 @@
     if (Array.isArray(value)) {
       if (!value.length) return el("span", "output-empty", "No items returned");
       const list = el("ul", "output-items");
-      value.forEach((item) => {
+      value.forEach((item, index) => {
         const entry = el("li", "output-item");
-        entry.append(item && typeof item === "object" ? renderObject(item) : renderValue(item));
+        if (item && typeof item === "object") {
+          const details = el("details", "output-item-details");
+          const title = item.title || item.name || item.label || item.key || item.id || ("Item " + (index + 1));
+          details.append(el("summary", null, title));
+          details.append(renderObject(item));
+          entry.append(details);
+        } else {
+          entry.append(renderValue(item));
+        }
         list.append(entry);
       });
       return list;

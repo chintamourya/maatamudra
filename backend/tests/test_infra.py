@@ -99,6 +99,18 @@ async def test_no_source_configured_is_a_clear_error(monkeypatch):
         await k.search("x")
 
 
+async def test_indiankanoon_transport_errors_are_reported(monkeypatch):
+    monkeypatch.setattr(kmod, "settings", SimpleNamespace(kanoon_token="token", tavily_key="", tavily_depth="basic"))
+    orig = httpx.AsyncClient
+
+    def fail(_):
+        raise httpx.ConnectError("offline")
+
+    monkeypatch.setattr(kmod.httpx, "AsyncClient", lambda **kw: orig(transport=httpx.MockTransport(fail), **kw))
+    with pytest.raises(KanoonError, match="Indian Kanoon request failed"):
+        await KanoonClient(Repo()).search("section 74")
+
+
 async def test_warm_cache_works_without_any_key(monkeypatch):
     monkeypatch.setattr(kmod, "settings", SimpleNamespace(kanoon_token="", tavily_key="", tavily_depth="basic"))
     repo = Repo()
