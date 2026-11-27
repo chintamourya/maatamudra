@@ -6,16 +6,14 @@ MAATAMUDRA is an open-source Indian contract intelligence prototype that helps c
 
 ## Judging alignment
 
-The submission pack currently records the event rubric as AI Utilization Depth (25%), Product Innovation (20%), Execution Speed (15%), Startup Viability (20%), UI/UX (10%) and Pitch & Storytelling (10%). Re-check the live official event page before submission; do not substitute a different rubric in the pitch.
+The event page lists Innovation (30%), Technical Implementation (40%), User Experience (20%) and Impact (10%). Re-check the official event page before presenting in case the organizers update the weights.
 
 | Rubric dimension | Demonstrable capability |
 |---|---|
-| AI utilization | Structured multilingual intake, upload analysis, grounded Q&A, two-sided review and explainability |
-| Innovation | Balanced redlines, deterministic checks, consequence simulation and India-aware legal context |
-| Execution speed | Fast template compilation, bounded retrieval and immediate deterministic checks |
-| Viability | Citizen, advocate and MSME workflows with a lawyer-in-the-loop model |
-| UX | Conversational creation, accessible explanations and visible verification status |
-| Pitch | One freelancer/vendor agreement story from intake through review and export |
+| Innovation (30%) | Balanced redlines, deterministic checks, consequence simulation and India-aware legal context |
+| Technical Implementation (40%) | Structured AI workflows, case-law verification, deterministic checks, number-integrity safeguards and deployable product |
+| User Experience (20%) | Conversational creation, accessible explanations and visible verification status |
+| Impact (10%) | Citizen, advocate and MSME workflows with a lawyer-in-the-loop model |
 
 ## Explicit hackathon boundaries
 

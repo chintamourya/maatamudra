@@ -10,23 +10,12 @@ and shows clause-level concerns, failed term checks and missing basic clauses. F
 A rewrite that introduces a number, amount or date not present in your clause is blocked from applying (same
 number-integrity rule as the main app).
 
-## How it is wired
-
-| Piece | File |
-|---|---|
-| Task pane UI | `backend/addin/taskpane.html`, `taskpane.css`, `taskpane.js` |
-| Office manifest template | `backend/addin/manifest.template.xml` (served filled-in at `/addin/manifest.xml`) |
-| Backend routes | `backend/app/addin.py` (`/addin/*` static files, manifest, `POST /api/addin/rewrite`) |
-| Review | existing `POST /api/upload/analyze` (text mode) |
-
-The add-in is served by the same FastAPI app, so **deploying the container deploys the add-in** and no CORS change is needed.
-
 ## Install (sideload) for the demo
 
-Word add-ins must be served over **HTTPS**. Your deployed Azure URL already is. Then:
+The Maatamudra demo must be available over **HTTPS**. Ask the demo organizer for its URL, then:
 
 **Word on the web (easiest for a screen recording)**
-1. Open `https://<your-deployed-url>/addin/manifest.xml` and save the file as `manifest.xml`.
+1. Open `<demo-url>/addin/manifest.xml` and save the file as `manifest.xml`.
 2. In Word on the web open a document, then **Home → Add-ins → More Settings → Upload My Add-in** (or Insert → Add-ins), and choose that file.
 3. A **Review agreement** button appears on the Home tab.
 
@@ -34,10 +23,7 @@ Word add-ins must be served over **HTTPS**. Your deployed Azure URL already is. 
 *File → Options → Trust Center → Trusted Add-in Catalogs*, then *Insert → My Add-ins → Shared Folder*.
 **Word desktop (Mac)**: copy `manifest.xml` into `~/Library/Containers/com.microsoft.Word/Data/Documents/wef`.
 
-**Local testing**: run the backend, expose it with an HTTPS tunnel (`ngrok http 8000` or `cloudflared tunnel --url http://localhost:8000`),
-and open `<tunnel-url>/addin/manifest.xml` to get a manifest pointing at the tunnel.
-
-**No Word at hand?** Open `https://<your-deployed-url>/addin/taskpane.html` in a browser. It switches to a paste-text mode so you can test the review flow.
+**No Word at hand?** Open `<demo-url>/addin/taskpane.html` in a browser. It switches to a paste-text mode so you can try the review flow.
 
 ## Demo flow (60 seconds)
 1. Open `samples/freelance_service.docx` (or any agreement) in Word.

@@ -14,7 +14,7 @@ Research snapshot: 18 November 2026. This is an AI-assisted research and enginee
 
 This build verifies official registration-portal discovery links and NeSL DDE directory presence for all 36 jurisdictions. It does **not** claim that every State/UT's current stamp schedule, tenancy law, labour rules, registration exemption, or instrument-specific rate has been individually transcribed and validated. These depend on instrument type, value, term, parties, place of execution, amendments and Gazette notifications. The application therefore shows the official portal and a coverage warning rather than generating an unsupported duty figure.
 
-The source registry is `backend/data/jurisdictions.json`. `verified_scope` and `not_verified` are deliberately explicit.
+The source registry deliberately distinguishes verified scope from matters that have not been verified.
 
 ## Official research sources
 

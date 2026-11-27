@@ -155,6 +155,7 @@ export default function App() {
     }
   }, [draftsReady, activeDraftId, persona, typeKey, spec, msg, questions, mode, contract, types]);
   const td = types.find((t) => t.key === typeKey);
+  const demoAvailable = types.some((type) => type.key === "freelance_service" && type.sample);
   const visibleTypes = types.filter((type) => {
     const [_, subtitle] = TYPE_PRESENTATION[type.key] || ["", ""];
     return `${type.title} ${subtitle}`.toLowerCase().includes(typeQuery.trim().toLowerCase());
@@ -186,6 +187,25 @@ export default function App() {
   const startNewDraft = () => {
     setMode("draft");
     reset(true);
+    setErr("");
+    revealDraftEditor();
+  };
+  const loadFreelanceDemo = () => {
+    const demoType = types.find((type) => type.key === "freelance_service");
+    if (!demoType?.sample) {
+      setErr("The synthetic freelancer sample is unavailable.");
+      return;
+    }
+    setActiveDraftId(makeDraftId());
+    setMode("draft");
+    setAnalysis(null);
+    setContract(null);
+    setSel(null);
+    setTypeKey(demoType.key);
+    setTypeQuery("");
+    setSpec(demoType.sample);
+    setQuestions([]);
+    setMsg("");
     setErr("");
     revealDraftEditor();
   };
@@ -429,6 +449,12 @@ export default function App() {
               {[["01", "Describe", "Start in your own words"], ["02", "Understand", "See each term clearly"], ["03", "Pressure-test", "Explore what could happen"], ["04", "Decide", "Review evidence, together"]].map(([n, title, copy], i) => (
                 <div className="story-step" key={n}><span className="story-step-no">{n}</span><span className="story-step-copy"><b>{title}</b><small>{copy}</small></span>{i < 3 && <span className="step-connector" aria-hidden="true" />}</div>
               ))}
+            </div>
+            <div className="story-demo">
+              <button className="primary create-button" disabled={!demoAvailable} onClick={loadFreelanceDemo}>
+                {demoAvailable ? "Try a synthetic freelancer agreement" : "Preparing the synthetic demo…"}
+              </button>
+              <p className="field-hint">Loads sample details only; review them before generating the draft.</p>
             </div>
           </div>
           <div className="story-note"><span>✳</span><p><b>Built for careful decisions.</b><br />No invented terms. No “legally valid” badge. Just a clearer way to review.</p></div>
