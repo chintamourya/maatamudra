@@ -597,3 +597,64 @@ button.primary:hover:not(:disabled) { border-color: #0e625f; background: #0e625f
   .copilot-section-head .primary { width: 100%; }
   .copilot-term-values { grid-template-columns: auto 1fr; }
 }
+
+/* Readable contrast and touch sizing across desktop and mobile. */
+:root {
+  --ink: #142638;
+  --paper: #edf2f2;
+  --rule: #c6d4d8;
+  --muted: #506473;
+  --accent: #0b6b63;
+  --accent-dark: #07534e;
+  --ok: #145c4f;
+  --warn: #7d4a08;
+  --bad: #922f2d;
+}
+
+body { color: var(--ink); background: var(--paper); font-size: 15px; line-height: 1.6; }
+.app { background: var(--paper); }
+.pane:first-of-type { background: #f7f9f8; }
+.pane:nth-of-type(2) { background: radial-gradient(ellipse at 82% 0%, #d2eae5 0, transparent 38%), #edf2f2; }
+.pane:last-child { background: #fff; }
+.muted, .field-hint { color: #4e6270; }
+.section-kicker { color: #395c65; font-size: 10px; }
+.pane h3 { font-size: 16px; }
+.pane h4 { font-size: 14px; }
+.field-label { font-size: 13px; }
+.field-hint, .legal-note { font-size: 12px; }
+.document-meta { color: #526977; font-size: 12px; }
+.story-copy > p { color: #4e6270; font-size: 16px; }
+.story-step-copy b, .trust-list b { font-size: 13px; }
+.story-step-copy small, .trust-list small { color: #506473; font-size: 12px; }
+.aside-welcome > p:not(.legal-note) { color: #506473; font-size: 13px; }
+.source-note { color: #435b69; font-size: 11px; }
+.tabs button, .modes button, .workspace-tools > summary { font-size: 12px; }
+.typepick button > span:nth-child(2) { font-size: 13px; }
+.typepick small { color: #506473; font-size: 11px; }
+.chip { font-size: 11px; }
+.brand b { font-family: "DM Sans", sans-serif; font-size: 21px; }
+.brand small { color: #d3e0e5; font-size: 9px; letter-spacing: .1em; }
+.top-status { font-size: 12px; }
+.typepick button, .card, .draft-history-item { border-color: #cbd9dc; }
+button.primary, .workspace-tools-menu .persona-switch button.on,
+.workspace-tools-menu .market-launch, .guide-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+button.primary:hover:not(:disabled) { background-color: var(--accent-dark); border-color: var(--accent-dark); }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  button { min-height: 44px; }
+  input, select, textarea { font-size: 16px; }
+  .brand b { font-size: 18px; }
+  .brand small { max-width: 170px; font-size: 8px; letter-spacing: .07em; }
+  .section-kicker { font-size: 11px; }
+  .pane h3 { font-size: 17px; }
+  .pane h4 { font-size: 15px; }
+  .field-hint, .legal-note, .source-note { font-size: 13px; }
+  .document-meta { font-size: 13px; }
+  .story-step-copy small, .trust-list small { font-size: 13px; }
+  .tabs button { font-size: 13px; }
+  .mobile-nav button { font-size: 13px; }
+}

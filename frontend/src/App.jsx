@@ -304,7 +304,7 @@ export default function App() {
   return (
     <div className={`app${detailsOpen ? "" : " details-collapsed"}${checksOpen ? "" : " checks-collapsed"} mobile-panel-${mobilePanel}`}>
       <header className="top">
-        <div className="brand" aria-label="మాటముద్ర MAATAMUDRA"><span className="brand-mark">మ</span><span><b>మాటముద్ర</b><small>AGREEMENTS. COMMITMENTS. CLARITY.</small></span></div>
+        <div className="brand" aria-label="Maatamudra, మాటముద్ర"><span className="brand-mark">మ</span><span><b>Maatamudra</b><small>AGREEMENTS · COMMITMENTS · CLARITY</small></span></div>
         <div className="top-status" aria-live="polite">
           <span className={`status-dot ${health?.llm_configured ? "ready" : health ? "attention" : ""}`} />
           {healthError ? "Connection unavailable" : health?.llm_configured ? "AI workspace ready" : health ? "AI setup needed" : "Connecting"}
