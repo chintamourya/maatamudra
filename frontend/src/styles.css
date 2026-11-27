@@ -718,3 +718,26 @@ button.primary:hover:not(:disabled) { background-color: var(--accent-dark); bord
   .tabs button { font-size: 13px; }
   .mobile-nav button { font-size: 13px; }
 }
+
+@media (min-width: 981px) and (max-width: 1450px) {
+  .app { grid-template-rows: auto minmax(0, 1fr); }
+  .top {
+    height: auto;
+    min-height: 76px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .top .sp { display: none; }
+  .brand { order: 1; }
+  .top-status { order: 2; }
+  .top-workspace-tabs {
+    order: 3;
+    flex: 1 1 520px;
+    min-width: 0;
+    overflow-x: auto;
+  }
+  .top-persona { order: 4; }
+  .top-link { order: 5; }
+}
