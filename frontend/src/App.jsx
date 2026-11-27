@@ -47,6 +47,7 @@ export default function App() {
   const [draftsReady, setDraftsReady] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(true);
   const [checksOpen, setChecksOpen] = useState(true);
+  const [mobilePanel, setMobilePanel] = useState("details");
   const [typeQuery, setTypeQuery] = useState("");
   const [health, setHealth] = useState(null);
   const [healthError, setHealthError] = useState("");
@@ -107,6 +108,7 @@ export default function App() {
                 setContract(savedContract);
                 setSel(savedContract.clauses[0]?.key);
                 setTab("copilot");
+                setMobilePanel("main");
               }
             } catch (e) {
               if (active) setErr(`Could not reopen the saved agreement: ${e.message}`);
@@ -166,6 +168,13 @@ export default function App() {
     setBusy(label); setErr("");
     try { return await fn(); } catch (e) { setErr(e.message); } finally { setBusy(""); }
   };
+  const showMobilePanel = (panel) => {
+    if (window.matchMedia("(max-width: 640px)").matches) {
+      setDetailsOpen(true);
+      setChecksOpen(true);
+    }
+    setMobilePanel(panel);
+  };
   const hasDraftContent = () => Boolean(contract || analysis || msg.trim() || questions.length ||
     Object.keys(spec).some((key) => key !== "contract_type" && key !== "provenance"));
   const pickType = (key) => {
@@ -176,7 +185,7 @@ export default function App() {
     const r = await api.intake(msg, spec, questions); setSpec(r.spec); setQuestions(r.questions); setMsg("");
   });
   const create = () => run("create", async () => {
-    const c = await api.create(spec); setContract(c); setSel(c.clauses[0]?.key); setTab("copilot");
+    const c = await api.create(spec); setContract(c); setSel(c.clauses[0]?.key); setTab("copilot"); showMobilePanel("main");
   });
   const clause = contract?.clauses.find((c) => c.key === sel);
   const reset = (forceNewDraft = false) => {
@@ -189,6 +198,7 @@ export default function App() {
     setMode("draft");
     reset(true);
     setErr("");
+    showMobilePanel("details");
     revealDraftEditor();
   };
   const loadFreelanceDemo = () => {
@@ -208,6 +218,7 @@ export default function App() {
     setQuestions([]);
     setMsg("");
     setErr("");
+    showMobilePanel("details");
     revealDraftEditor();
   };
   const revealDraftEditor = () => {
@@ -230,12 +241,14 @@ export default function App() {
     setContract(null);
     setSel(null);
     setErr("");
+    showMobilePanel("details");
     revealDraftEditor();
     if (draft.contractId) run("restore", async () => {
       const savedContract = await api.get(draft.contractId);
       setContract(savedContract);
       setSel(savedContract.clauses[0]?.key);
       setTab("copilot");
+      showMobilePanel("main");
     });
   };
   const pickFile = (f) => {
@@ -248,6 +261,7 @@ export default function App() {
   const analyze = () => run("analyze", async () => {
     const a = await api.uploadAnalyze(fileB64 ? { filename: fname, content_b64: fileB64 } : { text: paste });
     setAnalysis(a); setSpec(a.spec); setTypeKey(a.contract_type); setQuestions(a.questions);
+    showMobilePanel("main");
   });
   const refine = () => run("intake", async () => {
     const r = await api.intake(msg, spec, questions); setSpec(r.spec); setQuestions(r.questions); setMsg("");
@@ -255,7 +269,7 @@ export default function App() {
   });
   const openUpload = () => run("create", async () => {
     const c = await api.uploadOpen({ spec, segments: analysis.segments, filename: fname || "pasted text" });
-    setContract(c); setSel(c.clauses[0]?.key); setTab("copilot");
+    setContract(c); setSel(c.clauses[0]?.key); setTab("copilot"); showMobilePanel("main");
   });
   const dictate = () => {
     if (listening) return;
@@ -288,7 +302,7 @@ export default function App() {
 
   const missingBasics = analysis?.gaps?.missing_basics || [];
   return (
-    <div className={`app${detailsOpen ? "" : " details-collapsed"}${checksOpen ? "" : " checks-collapsed"}`}>
+    <div className={`app${detailsOpen ? "" : " details-collapsed"}${checksOpen ? "" : " checks-collapsed"} mobile-panel-${mobilePanel}`}>
       <header className="top">
         <div className="brand" aria-label="మాటముద్ర MAATAMUDRA"><span className="brand-mark">మ</span><span><b>మాటముద్ర</b><small>AGREEMENTS. COMMITMENTS. CLARITY.</small></span></div>
         <div className="top-status" aria-live="polite">
@@ -318,6 +332,11 @@ export default function App() {
           <a className="top-link optional-link" href={api.jsonUrl(contract.id)} target="_blank" rel="noreferrer">Terms JSON</a>
         </>}
       </header>
+      <nav className="mobile-nav" role="tablist" aria-label="Workspace sections">
+        {[["details", "Draft"], ["main", "Agreement"], ["checks", "Guidance"]].map(([panel, label]) => (
+          <button key={panel} role="tab" aria-selected={mobilePanel === panel} onClick={() => showMobilePanel(panel)}>{label}</button>
+        ))}
+      </nav>
       {demoIdentity && <IdentitySimulation result={demoIdentity} onClose={() => setDemoIdentity(null)} />}
       {guideOpen && <UserGuide initialSection={guideSection} onClose={() => setGuideOpen(false)} />}
       {marketOpen && <MarketResearchDashboard data={marketData} loading={marketLoading} error={marketError} onClose={() => setMarketOpen(false)} onRefresh={refreshMarketResearch} />}
