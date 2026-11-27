@@ -41,7 +41,10 @@ def test_manifest_rejects_odd_host_header():
 
 def test_taskpane_assets_are_served():
     c = TestClient(app)
-    assert "Maatamudra" in c.get("/addin/taskpane.html").text
+    html = c.get("/addin/taskpane.html").text
+    assert "Maatamudra" in html
+    assert html.index('id="contractSetup"') < html.index('id="concerns"')
+    assert 'id="btnShowDraft"' in html
     assert c.get("/addin/taskpane.js").status_code == 200
     assert c.get("/addin/icon-80.png").status_code == 200
 

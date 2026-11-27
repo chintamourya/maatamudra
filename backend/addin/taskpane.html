@@ -33,6 +33,17 @@
 
     <section id="results" hidden>
       <div id="summary" class="chips"></div>
+      <div id="contractSetup" class="card" hidden>
+        <h2>Agreement tools</h2>
+        <p id="contractSetupNote" class="muted"></p>
+        <div id="extractedTerms"></div>
+        <label for="clarification">Add or correct agreed details</label>
+        <textarea id="clarification" rows="3" placeholder="For example: The rent is ₹22,000 per month and is due on the 5th."></textarea>
+        <div class="actions">
+          <button id="btnClarify">Update extracted terms</button>
+          <button id="btnEnableTools" class="primary">Create workspace &amp; open tools</button>
+        </div>
+      </div>
       <div class="toolbar">
         <button id="btnCommentAll" class="ghost">Add all concerns as comments</button>
       </div>
@@ -45,17 +56,6 @@
 
       <h2>Missing or unstated</h2>
       <div id="gaps"></div>
-      <div id="contractSetup" class="card" hidden>
-        <h2>Agreement tools</h2>
-        <p id="contractSetupNote" class="muted"></p>
-        <div id="extractedTerms"></div>
-        <label for="clarification">Add or correct agreed details</label>
-        <textarea id="clarification" rows="3" placeholder="For example: The rent is ₹22,000 per month and is due on the 5th."></textarea>
-        <div class="actions">
-          <button id="btnClarify">Update extracted terms</button>
-          <button id="btnEnableTools" class="primary">Create workspace &amp; open tools</button>
-        </div>
-      </div>
     </section>
 
     <section id="agreementTools" class="card" hidden>
