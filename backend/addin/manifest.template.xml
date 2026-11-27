@@ -6,11 +6,11 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>6f1d2c1e-4b0a-4c55-9a5e-3b7a1d9c2e84</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.1.0.0</Version>
   <ProviderName>Maatamudra</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Maatamudra"/>
-  <Description DefaultValue="AI review of Indian agreements inside Word: clause-level concerns, missing basics, and balanced rewrites you accept as tracked changes."/>
+  <Description DefaultValue="Draft and review Indian agreements in Word with clause analysis, tracked-change rewrites, legal context, negotiation and obligations tools."/>
   <IconUrl DefaultValue="{{BASE}}/addin/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="{{BASE}}/addin/icon-128.png"/>
   <SupportUrl DefaultValue="{{BASE}}/"/>
@@ -78,7 +78,7 @@
         <bt:String id="Button.Label" DefaultValue="Review agreement"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="Button.Tip" DefaultValue="Open Maatamudra to review this agreement clause by clause."/>
+        <bt:String id="Button.Tip" DefaultValue="Open Maatamudra to draft or review an agreement and access its legal, negotiation and obligation tools."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
