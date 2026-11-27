@@ -360,6 +360,7 @@ export default function App() {
           <button role="tab" aria-selected={topView === "contracts"} className={topView === "contracts" ? "active" : ""} onClick={() => { setTopView("contracts"); showMobilePanel("details"); api.listContracts().then(setContracts).catch((e) => setErr(e.message)); }}>Contracts</button>
           <button role="tab" onClick={openMarketResearch}>Market</button>
           <button role="tab" onClick={() => { setGuideSection("start"); setGuideOpen(true); }}>Guide</button>
+          <button role="tab" onClick={() => { setGuideSection("word"); setGuideOpen(true); }}>Word add-in</button>
         </nav>
         <div className="persona-switch top-persona" aria-label="Workspace mode">
           {[ ["citizen", "Citizen"], ["advocate", "Advocate"], ["business", "Business"] ].map(([key, label]) =>
