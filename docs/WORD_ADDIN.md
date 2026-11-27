@@ -25,11 +25,20 @@ The Maatamudra demo must be available over **HTTPS**. Ask the demo organizer for
 
 **No Word at hand?** Open `<demo-url>/addin/taskpane.html` in a browser. It switches to a paste-text mode so you can try the review flow.
 
-## Demo flow (60 seconds)
+## How to use it
+
+1. Open a supported agreement in Word and select **Review agreement** on the Home tab.
+2. Wait for the analysis, then select a concern to see its details.
+3. Choose **Show in document** to jump to the relevant text, or add a comment to record the concern.
+4. To revise a clause, choose **Suggest balanced rewrite**, review the proposed wording, then select **Apply as tracked change**.
+5. Use Word's Review tab to accept or reject the change. If you edit the document, run the analysis again.
+
+## Quick demo
+
 1. Open `samples/freelance_service.docx` (or any agreement) in Word.
 2. Click **Review agreement**, wait for the analysis.
 3. Click a concern, then **Show in document**.
-4. **Suggest balanced rewrite**, then **Apply as tracked change**, and show the revision in the Review tab.
+4. **Suggest balanced rewrite**, then **Apply as tracked change**, and show how to accept or reject the revision in the Review tab.
 
 ## Limits (say these out loud, judges like honesty)
 - The add-in reads paragraphs, so scanned or image-only documents are not supported here (the web app has OCR).

@@ -26,8 +26,13 @@ The legal intelligence endpoint deliberately labels its findings as review promp
 
 ## Word add-in
 
-Review agreements inside Microsoft Word: clause concerns, comments, and balanced rewrites applied as tracked changes.
-It is served by the same backend at `/addin`; get the manifest at `/addin/manifest.xml`. See [docs/WORD_ADDIN.md](docs/WORD_ADDIN.md).
+Review agreements inside Microsoft Word:
+1. Install the add-in using the HTTPS demo manifest; see the [Word add-in guide](docs/WORD_ADDIN.md).
+2. Open an agreement and choose **Review agreement** on Word's Home tab.
+3. Select a finding to locate it in the document or add a comment. You can also review a suggested rewrite and apply it as a tracked change.
+4. Accept or reject applied edits in Word. Run the review again after changing the document.
+
+The add-in does not support scanned/image-only documents. Use synthetic or redacted agreements on a public demo.
 
 ## Open source
 
