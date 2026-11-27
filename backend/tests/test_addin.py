@@ -44,7 +44,8 @@ def test_taskpane_assets_are_served():
     html = c.get("/addin/taskpane.html").text
     assert "Maatamudra" in html
     assert html.index('id="contractSetup"') < html.index('id="concerns"')
-    assert 'id="btnShowDraft"' in html
+    assert 'id="mainTabs"' in html and 'data-main-panel="draft"' in html
+    assert 'id="reviewTabs"' in html
     js_response = c.get("/addin/taskpane.js")
     assert js_response.status_code == 200
     js = js_response.text

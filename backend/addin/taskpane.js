@@ -227,6 +227,28 @@
     return first.getRange("Content").expandTo(last.getRange("Content"));
   }
 
+  function selectMainPanel(name) {
+    if (name === "workspace" && !state.contract) return;
+    document.querySelectorAll("#mainTabs button").forEach((button) => {
+      button.setAttribute("aria-selected", String(button.dataset.mainPanel === name));
+    });
+    document.querySelectorAll(".main-panel").forEach((panel) => {
+      panel.hidden = panel.id !== "main-" + name;
+    });
+  }
+  function selectReviewPanel(name) {
+    document.querySelectorAll("#reviewTabs button").forEach((button) => {
+      button.setAttribute("aria-selected", String(button.dataset.reviewPanel === name));
+    });
+    document.querySelectorAll(".review-panel").forEach((panel) => {
+      panel.hidden = panel.id !== "review-" + name;
+    });
+  }
+  function updateMainTabs() {
+    const workspaceTab = document.querySelector('#mainTabs [data-main-panel="workspace"]');
+    workspaceTab.disabled = !state.contract;
+  }
+
   // ---- review ------------------------------------------------------------
   async function review() {
     if (state.busy) return;
@@ -250,7 +272,8 @@
       state.result.text = text;
       $("agreementTools").hidden = true;
       $("contractSetup").hidden = false;
-      $("draftTools").hidden = true;
+      updateMainTabs();
+      selectMainPanel("review");
       state.contractType = result.contract_type;
       updateContractSetup();
       render(result, text.length > 60000);
@@ -319,6 +342,8 @@
 
     $("btnCommentAll").disabled = !(state.inWord && concerns.length);
     $("results").hidden = false;
+    $("reviewTabs").hidden = false;
+    selectReviewPanel("concerns");
   }
 
   function gapCard(g, core) {
@@ -446,8 +471,9 @@
         state.draftContract = null;
         populateAgreementSelectors();
         $("agreementTools").hidden = false;
-        $("draftTools").hidden = true;
+        updateMainTabs();
         showToolPanel("legal");
+        selectMainPanel("workspace");
         setStatus("Workspace created and tools are ready. Verify the saved terms before using results.");
       }
 
@@ -491,7 +517,6 @@
         document.querySelectorAll("#agreementTools .tool-panel").forEach((panel) => {
           panel.hidden = panel.id !== "panel-" + name;
         });
-        $("draftTools").hidden = name !== "draft";
       }
 
       function renderScenarioInputs() {
@@ -736,9 +761,12 @@
         state.contract = created;
         state.contractType = type.key;
         state.result = null;
+        $("results").hidden = true;
         populateAgreementSelectors();
         $("agreementTools").hidden = false;
-        showToolPanel("draft");
+        updateMainTabs();
+        showToolPanel("legal");
+        selectMainPanel("draft");
         const output = $("draftOutput");
         output.replaceChildren(outputCard("Draft created · review before use", (created.clauses || []).map((clause) => ({
           title: clause.title, text: clause.text,
@@ -863,10 +891,12 @@
     state.inWord = host === "Word" || (window.Office && Office.HostType && host === Office.HostType.Word);
     $("pasteBox").hidden = state.inWord;
     $("btnReview").onclick = review;
-    $("btnShowDraft").onclick = () => {
-      showToolPanel("draft");
-      $("draftTools").scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+    document.querySelectorAll("#mainTabs button").forEach((button) => {
+      button.onclick = () => selectMainPanel(button.dataset.mainPanel);
+    });
+    document.querySelectorAll("#reviewTabs button").forEach((button) => {
+      button.onclick = () => selectReviewPanel(button.dataset.reviewPanel);
+    });
     $("btnCommentAll").onclick = () => run($("btnCommentAll"), commentAll);
     $("btnClarify").onclick = () => withAction($("btnClarify"), "Updating…", clarifyTerms);
     $("btnEnableTools").onclick = () => withAction($("btnEnableTools"), "Opening…", openAgreementTools);

@@ -40,6 +40,12 @@ footer{padding:10px 14px 18px;font-size:11px;color:var(--muted);border-top:1px s
 .tool-header{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .tool-header h2{margin-top:4px}
 .tool-header a{font-size:11px;color:var(--accent)}
+.main-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;margin-bottom:8px}
+.main-tabs button,.review-tabs button{min-width:0;width:100%;font-size:11px;line-height:1.25;white-space:normal}
+.main-tabs button[aria-selected="true"],.review-tabs button[aria-selected="true"]{border-color:#b8d7f5;background:#e8f3ff;color:#004182;font-weight:700}
+.main-tabs button:disabled{opacity:.45}
+.review-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:8px 0 12px}
+.main-panel[hidden],.review-panel[hidden]{display:none}
 .tool-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;border-bottom:1px solid var(--line);margin:10px -2px;padding:0 2px 8px}
 .tool-tabs button{min-width:0;width:100%;padding:7px 8px;font-size:11px;line-height:1.25;white-space:normal}
 .tool-tabs button[aria-selected="true"]{border-color:#b8d7f5;background:#e8f3ff;color:#004182;font-weight:700}

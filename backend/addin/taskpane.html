@@ -17,132 +17,151 @@
   </header>
 
   <main>
-    <section class="card controls">
-      <label for="ctype">Agreement type</label>
-      <select id="ctype"><option value="">Auto-detect</option></select>
+    <nav id="mainTabs" class="main-tabs" aria-label="Maatamudra sections">
+      <button data-main-panel="review" aria-selected="true">Review</button>
+      <button data-main-panel="workspace" aria-selected="false" disabled title="Create a workspace from a review or draft to unlock these tools">Agreement tools</button>
+      <button data-main-panel="draft" aria-selected="false">Draft</button>
+    </nav>
 
-      <div id="pasteBox" hidden>
-        <label for="paste">Not running inside Word — paste agreement text to try it</label>
-        <textarea id="paste" rows="6" placeholder="Paste at least a few clauses…"></textarea>
-      </div>
+    <section id="main-review" class="main-panel">
+      <section class="card controls">
+        <label for="ctype">Agreement type</label>
+        <select id="ctype"><option value="">Auto-detect</option></select>
 
-      <button id="btnReview" class="primary">Review this agreement</button>
-      <button id="btnShowDraft" class="ghost">Draft a new agreement</button>
-      <p id="status" class="status" role="status" aria-live="polite"></p>
-    </section>
-
-    <section id="results" hidden>
-      <div id="summary" class="chips"></div>
-      <div id="contractSetup" class="card" hidden>
-        <h2>Agreement tools</h2>
-        <p id="contractSetupNote" class="muted"></p>
-        <div id="extractedTerms"></div>
-        <label for="clarification">Add or correct agreed details</label>
-        <textarea id="clarification" rows="3" placeholder="For example: The rent is ₹22,000 per month and is due on the 5th."></textarea>
-        <div class="actions">
-          <button id="btnClarify">Update extracted terms</button>
-          <button id="btnEnableTools" class="primary">Create workspace &amp; open tools</button>
+        <div id="pasteBox" hidden>
+          <label for="paste">Not running inside Word — paste agreement text to try it</label>
+          <textarea id="paste" rows="6" placeholder="Paste at least a few clauses…"></textarea>
         </div>
-        <p id="contractSetupStatus" class="status" role="status" aria-live="polite"></p>
-      </div>
-      <div class="toolbar">
-        <button id="btnCommentAll" class="ghost">Add all concerns as comments</button>
-      </div>
 
-      <h2>Clause concerns</h2>
-      <div id="concerns"></div>
+        <button id="btnReview" class="primary">Review this agreement</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
 
-      <h2>Checks on the stated terms</h2>
-      <div id="checks"></div>
-
-      <h2>Missing or unstated</h2>
-      <div id="gaps"></div>
-    </section>
-
-    <section id="agreementTools" class="card" hidden>
-      <div class="tool-header">
-        <h2>Agreement workspace</h2>
-        <a href="/" target="_blank" rel="noreferrer">Open full workspace ↗</a>
-      </div>
-      <p class="muted">Tools use the saved terms for the currently opened or drafted agreement. Verify them before relying on any result.</p>
-      <p id="workspaceStatus" class="status" role="status" aria-live="polite"></p>
-      <nav id="toolTabs" class="tool-tabs" aria-label="Agreement tools">
-        <button data-panel="legal" aria-selected="true">Law &amp; evidence</button>
-        <button data-panel="negotiate" aria-selected="false">Negotiate</button>
-        <button data-panel="ask" aria-selected="false">Ask &amp; explain</button>
-        <button data-panel="scenario" aria-selected="false">What-if</button>
-        <button data-panel="obligations" aria-selected="false">Obligations</button>
-        <button data-panel="draft" aria-selected="false">Draft agreement</button>
-      </nav>
-      <section id="panel-legal" class="tool-panel">
-        <div class="actions">
-          <button id="btnLegal">Load legal context</button>
-        </div>
-        <label for="evidenceClause">Clause for case-law evidence</label>
-        <select id="evidenceClause"></select>
-        <button id="btnEvidence">Check clause evidence</button>
-        <div id="legalOutput"></div>
-      </section>
-      <section id="panel-negotiate" class="tool-panel" hidden>
-        <div class="actions">
-          <button id="btnCopilotReview">AI contract review</button>
-          <button id="btnRedlineReview">Negotiation review</button>
-          <button id="btnPlaybook">Playbook review</button>
-        </div>
-        <label for="reviewSide">Your side (for playbook review)</label>
-        <input id="reviewSide" type="text" placeholder="Tenant, client, employee…"/>
-        <label for="reviewDeadline">Negotiation deadline</label>
-        <input id="reviewDeadline" type="text" placeholder="For example: before 30 June"/>
-        <label for="dealContext">Negotiation context</label>
-        <textarea id="dealContext" rows="2" placeholder="Priorities, deadline, and points you can or cannot accept"></textarea>
-        <div id="negotiationOutput"></div>
-      </section>
-      <section id="panel-ask" class="tool-panel" hidden>
-        <label for="question">Ask about this agreement</label>
-        <textarea id="question" rows="2" placeholder="What does the termination clause require?"></textarea>
-        <button id="btnAsk">Ask</button>
-        <div id="answerOutput"></div>
-        <hr/>
-        <label for="explainLanguage">Explain this agreement in</label>
-        <select id="explainLanguage">
-          <option>English</option><option>Hindi</option><option>Telugu</option><option>Tamil</option>
-          <option>Kannada</option><option>Malayalam</option><option>Marathi</option><option>Bengali</option>
-          <option>Gujarati</option><option>Punjabi</option><option>Urdu</option><option>Odia</option>
-        </select>
-        <button id="btnExplain">Explain agreement</button>
-        <div id="explainOutput"></div>
-      </section>
-      <section id="panel-scenario" class="tool-panel" hidden>
-        <label for="scenarioSelect">Scenario</label>
-        <select id="scenarioSelect"></select>
-        <div id="scenarioInputs"></div>
-        <button id="btnSimulate">Run what-if</button>
-        <div id="scenarioOutput"></div>
-      </section>
-      <section id="panel-obligations" class="tool-panel" hidden>
-        <div class="actions">
-          <button id="btnObligations">Load obligations</button>
-          <button id="btnExecution">Load execution checklist</button>
-        </div>
-        <div id="obligationsOutput"></div>
-        <div id="executionOutput"></div>
-        <button id="btnConsequenceMap">Load consequence map</button>
-        <div id="consequenceOutput"></div>
-        <div id="contractExports" class="actions"></div>
+      <section id="results" hidden>
+        <div id="summary" class="chips"></div>
+        <nav id="reviewTabs" class="review-tabs" aria-label="Review results" hidden>
+          <button data-review-panel="overview" aria-selected="false">Overview</button>
+          <button data-review-panel="concerns" aria-selected="true">Concerns</button>
+          <button data-review-panel="checks" aria-selected="false">Checks</button>
+          <button data-review-panel="gaps" aria-selected="false">Missing</button>
+        </nav>
+        <section id="review-overview" class="review-panel" hidden>
+          <div id="contractSetup" class="card" hidden>
+            <h2>Verify terms &amp; create workspace</h2>
+            <p id="contractSetupNote" class="muted"></p>
+            <div id="extractedTerms"></div>
+            <label for="clarification">Add or correct agreed details</label>
+            <textarea id="clarification" rows="3" placeholder="For example: The rent is ₹22,000 per month and is due on the 5th."></textarea>
+            <div class="actions">
+              <button id="btnClarify">Update extracted terms</button>
+              <button id="btnEnableTools" class="primary">Create workspace &amp; open tools</button>
+            </div>
+            <p id="contractSetupStatus" class="status" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+        <section id="review-concerns" class="review-panel">
+          <div class="toolbar">
+            <button id="btnCommentAll" class="ghost">Add all concerns as comments</button>
+          </div>
+          <h2>Clause concerns</h2>
+          <div id="concerns"></div>
+        </section>
+        <section id="review-checks" class="review-panel" hidden>
+          <h2>Checks on the stated terms</h2>
+          <div id="checks"></div>
+        </section>
+        <section id="review-gaps" class="review-panel" hidden>
+          <h2>Missing or unstated</h2>
+          <div id="gaps"></div>
+        </section>
       </section>
     </section>
 
-    <section id="draftTools" class="card" hidden>
-      <h2>Draft in Word</h2>
-      <p class="muted">Create a new agreement from an agreed brief, then insert the generated clauses at the cursor. This does not replace review by an Indian advocate.</p>
-      <label for="draftType">Agreement type</label>
-      <select id="draftType"></select>
-      <button id="btnDraftSample" class="ghost">Load synthetic example</button>
-      <label for="draftBrief">Describe the agreed terms</label>
-      <textarea id="draftBrief" rows="4" placeholder="Describe the parties, scope, amounts, dates and other agreed terms."></textarea>
-      <div class="actions"><button id="btnDraftIntake">Extract details</button><button id="btnDraftCreate" class="primary" disabled>Create agreement</button></div>
-      <div id="draftQuestions"></div>
-      <div id="draftOutput"></div>
+    <section id="main-workspace" class="main-panel" hidden>
+      <section id="agreementTools" class="card" hidden>
+        <div class="tool-header">
+          <h2>Agreement workspace</h2>
+          <a href="/" target="_blank" rel="noreferrer">Open full workspace ↗</a>
+        </div>
+        <p class="muted">Tools use the saved terms for the currently opened or drafted agreement. Verify them before relying on any result.</p>
+        <p id="workspaceStatus" class="status" role="status" aria-live="polite"></p>
+        <nav id="toolTabs" class="tool-tabs" aria-label="Agreement tools">
+          <button data-panel="legal" aria-selected="true">Law &amp; evidence</button>
+          <button data-panel="negotiate" aria-selected="false">Negotiate</button>
+          <button data-panel="ask" aria-selected="false">Ask &amp; explain</button>
+          <button data-panel="scenario" aria-selected="false">What-if</button>
+          <button data-panel="obligations" aria-selected="false">Obligations</button>
+        </nav>
+        <section id="panel-legal" class="tool-panel">
+          <div class="actions"><button id="btnLegal">Load legal context</button></div>
+          <label for="evidenceClause">Clause for case-law evidence</label>
+          <select id="evidenceClause"></select>
+          <button id="btnEvidence">Check clause evidence</button>
+          <div id="legalOutput"></div>
+        </section>
+        <section id="panel-negotiate" class="tool-panel" hidden>
+          <div class="actions">
+            <button id="btnCopilotReview">AI contract review</button>
+            <button id="btnRedlineReview">Negotiation review</button>
+            <button id="btnPlaybook">Playbook review</button>
+          </div>
+          <label for="reviewSide">Your side (for playbook review)</label>
+          <input id="reviewSide" type="text" placeholder="Tenant, client, employee…"/>
+          <label for="reviewDeadline">Negotiation deadline</label>
+          <input id="reviewDeadline" type="text" placeholder="For example: before 30 June"/>
+          <label for="dealContext">Negotiation context</label>
+          <textarea id="dealContext" rows="2" placeholder="Priorities, deadline, and points you can or cannot accept"></textarea>
+          <div id="negotiationOutput"></div>
+        </section>
+        <section id="panel-ask" class="tool-panel" hidden>
+          <label for="question">Ask about this agreement</label>
+          <textarea id="question" rows="2" placeholder="What does the termination clause require?"></textarea>
+          <button id="btnAsk">Ask</button>
+          <div id="answerOutput"></div>
+          <hr/>
+          <label for="explainLanguage">Explain this agreement in</label>
+          <select id="explainLanguage">
+            <option>English</option><option>Hindi</option><option>Telugu</option><option>Tamil</option>
+            <option>Kannada</option><option>Malayalam</option><option>Marathi</option><option>Bengali</option>
+            <option>Gujarati</option><option>Punjabi</option><option>Urdu</option><option>Odia</option>
+          </select>
+          <button id="btnExplain">Explain agreement</button>
+          <div id="explainOutput"></div>
+        </section>
+        <section id="panel-scenario" class="tool-panel" hidden>
+          <label for="scenarioSelect">Scenario</label>
+          <select id="scenarioSelect"></select>
+          <div id="scenarioInputs"></div>
+          <button id="btnSimulate">Run what-if</button>
+          <div id="scenarioOutput"></div>
+        </section>
+        <section id="panel-obligations" class="tool-panel" hidden>
+          <div class="actions">
+            <button id="btnObligations">Load obligations</button>
+            <button id="btnExecution">Load execution checklist</button>
+          </div>
+          <div id="obligationsOutput"></div>
+          <div id="executionOutput"></div>
+          <button id="btnConsequenceMap">Load consequence map</button>
+          <div id="consequenceOutput"></div>
+          <div id="contractExports" class="actions"></div>
+        </section>
+      </section>
+    </section>
+
+    <section id="main-draft" class="main-panel" hidden>
+      <section id="draftTools" class="card">
+        <h2>Draft an agreement</h2>
+        <p class="muted">Create from agreed terms, then insert the generated clauses at the cursor. This does not replace review by an Indian advocate.</p>
+        <label for="draftType">Agreement type</label>
+        <select id="draftType"></select>
+        <button id="btnDraftSample" class="ghost">Load synthetic example</button>
+        <label for="draftBrief">Describe the agreed terms</label>
+        <textarea id="draftBrief" rows="4" placeholder="Describe the parties, scope, amounts, dates and other agreed terms."></textarea>
+        <div class="actions"><button id="btnDraftIntake">Extract details</button><button id="btnDraftCreate" class="primary" disabled>Create agreement</button></div>
+        <div id="draftQuestions"></div>
+        <div id="draftOutput"></div>
+      </section>
     </section>
   </main>
 
