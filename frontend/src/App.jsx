@@ -12,10 +12,27 @@ const HEADLINES = {
 };
 const PROV = { inferred: "worked out", suggested_default: "suggested", document: "from document" };
 const money = (k, v) => (k === "owner" ? v : `₹${Number(v).toLocaleString("en-IN")}`);
-const DRAFTS_KEY = "maatamudra:drafts:v1";
-const ACTIVE_DRAFT_KEY = "maatamudra:active-draft:v1";
-const PERSONA_KEY = "maatamudra:persona:v1";
 const makeDraftId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+const DEMO_STORAGE_KEY = "maatamudra:browser-identity:v1";
+const getBrowserIdentity = () => {
+  let id = window.localStorage.getItem(DEMO_STORAGE_KEY);
+  if (!id) {
+    id = makeDraftId();
+    window.localStorage.setItem(DEMO_STORAGE_KEY, id);
+  }
+  return id;
+};
+const BROWSER_ID = typeof window === "undefined" ? "server" : getBrowserIdentity();
+const DRAFTS_KEY = `maatamudra:drafts:v1:${BROWSER_ID}`;
+const ACTIVE_DRAFT_KEY = `maatamudra:active-draft:v1:${BROWSER_ID}`;
+const PERSONA_KEY = `maatamudra:persona:v1:${BROWSER_ID}`;
+const hasSavedDraftContent = (draft) => Boolean(
+  draft?.contractId ||
+  draft?.message?.trim() ||
+  draft?.questions?.length ||
+  Object.entries(draft?.spec || {}).some(([key, value]) =>
+    key !== "contract_type" && key !== "provenance" && value !== null && value !== ""),
+);
 const TYPE_PRESENTATION = {
   rental_agreement: ["⌂", "Home & tenancy"],
   freelance_service: ["↗", "Freelance, consulting & services"],
@@ -45,6 +62,8 @@ export default function App() {
   const draftMessageRef = useRef(null);
   const [activeDraftId, setActiveDraftId] = useState(null);
   const [draftsReady, setDraftsReady] = useState(false);
+  const [topView, setTopView] = useState("workspace");
+  const [contracts, setContracts] = useState([]);
   const [detailsOpen, setDetailsOpen] = useState(true);
   const [checksOpen, setChecksOpen] = useState(true);
   const [mobilePanel, setMobilePanel] = useState("details");
@@ -79,6 +98,7 @@ export default function App() {
   useEffect(() => {
     api.types().then(setTypes).catch((e) => setErr(e.message));
     api.health().then(setHealth).catch((e) => setHealthError(e.message));
+    api.listContracts().then(setContracts).catch(() => setContracts([]));
   }, []);
   useEffect(() => {
     let active = true;
@@ -86,7 +106,8 @@ export default function App() {
       try {
         const storedDrafts = JSON.parse(window.localStorage.getItem(DRAFTS_KEY) || "[]");
         if (!Array.isArray(storedDrafts)) throw new Error("Saved drafts are in an unreadable format.");
-        const availableDrafts = storedDrafts.filter((draft) => draft && typeof draft.id === "string");
+        const availableDrafts = storedDrafts.filter((draft) =>
+          draft && typeof draft.id === "string" && hasSavedDraftContent(draft));
         draftsRef.current = availableDrafts;
         setDrafts(availableDrafts);
         const savedPersona = window.localStorage.getItem(PERSONA_KEY);
@@ -131,6 +152,13 @@ export default function App() {
   }, []);
   useEffect(() => {
     if (!draftsReady || !activeDraftId) return;
+    const existingDraft = draftsRef.current.find((draft) => draft.id === activeDraftId);
+    if (!hasSavedDraftContent({
+      contractId: contract?.id || existingDraft?.contractId,
+      message: msg,
+      questions,
+      spec,
+    })) return;
     try {
       const type = types.find((item) => item.key === typeKey);
       const party = spec.landlord_name || spec.tenant_name || spec.employer_name || spec.employee_name ||
@@ -144,7 +172,7 @@ export default function App() {
         message: msg,
         questions,
         mode,
-        contractId: contract?.id || draftsRef.current.find((draft) => draft.id === activeDraftId)?.contractId || null,
+        contractId: contract?.id || existingDraft?.contractId || null,
         updatedAt: new Date().toISOString(),
       };
       const nextDrafts = [saved, ...draftsRef.current.filter((draft) => draft.id !== activeDraftId)].slice(0, 30);
@@ -176,7 +204,8 @@ export default function App() {
     setMobilePanel(panel);
   };
   const hasDraftContent = () => Boolean(contract || analysis || msg.trim() || questions.length ||
-    Object.keys(spec).some((key) => key !== "contract_type" && key !== "provenance"));
+    Object.entries(spec).some(([key, value]) =>
+      key !== "contract_type" && key !== "provenance" && value !== null && value !== ""));
   const pickType = (key) => {
     if (hasDraftContent()) setActiveDraftId(makeDraftId());
     setTypeKey(key); setSpec({ contract_type: key, provenance: {} }); setQuestions([]); setContract(null); setSel(null); setTab("evidence");
@@ -185,7 +214,9 @@ export default function App() {
     const r = await api.intake(msg, spec, questions); setSpec(r.spec); setQuestions(r.questions); setMsg("");
   });
   const create = () => run("create", async () => {
-    const c = await api.create(spec); setContract(c); setSel(c.clauses[0]?.key); setTab("copilot"); showMobilePanel("main");
+    const c = await api.create(spec);
+    setContract(c); setSel(c.clauses[0]?.key); setTab("copilot"); showMobilePanel("main");
+    api.listContracts().then(setContracts).catch(() => {});
   });
   const clause = contract?.clauses.find((c) => c.key === sel);
   const reset = (forceNewDraft = false) => {
@@ -251,6 +282,18 @@ export default function App() {
       showMobilePanel("main");
     });
   };
+  const openContract = async (contractSummary) => {
+    await run("restore", async () => {
+      const savedContract = await api.get(contractSummary.id);
+      setContract(savedContract);
+      setSel(savedContract.clauses[0]?.key);
+      setTypeKey(savedContract.spec.contract_type);
+      setSpec(savedContract.spec);
+      setTab("copilot");
+      setTopView("workspace");
+      showMobilePanel("main");
+    });
+  };
   const pickFile = (f) => {
     if (!f) return;
     setFname(f.name);
@@ -270,6 +313,7 @@ export default function App() {
   const openUpload = () => run("create", async () => {
     const c = await api.uploadOpen({ spec, segments: analysis.segments, filename: fname || "pasted text" });
     setContract(c); setSel(c.clauses[0]?.key); setTab("copilot"); showMobilePanel("main");
+    api.listContracts().then(setContracts).catch(() => {});
   });
   const dictate = () => {
     if (listening) return;
@@ -310,22 +354,17 @@ export default function App() {
           {healthError ? "Connection unavailable" : health?.llm_configured ? "AI workspace ready" : health ? "AI setup needed" : "Connecting"}
         </div>
         <span className="sp" />
-        <details className="workspace-tools">
-          <summary>Workspace tools <span aria-hidden="true">⌄</span></summary>
-          <div className="workspace-tools-menu">
-            <div className="persona-switch" aria-label="Workspace mode">
-              {[ ["citizen", "Citizen"], ["advocate", "Advocate"], ["business", "Business"] ].map(([key, label]) =>
-                <button key={key} className={persona === key ? "on" : ""} onClick={(event) => {
-                  setPersona(key);
-                  event.currentTarget.closest("details").open = false;
-                }}>{label}</button>)}
-            </div>
-            <button className="market-launch" onClick={openMarketResearch}>Market research &amp; revenue ↗</button>
-            <button className="tool-menu-button" onClick={async () => { setDemoIdentityBusy(true); setErr(""); try { setDemoIdentity(await api.demoAuth("Hackathon participant", persona)); } catch (e) { setErr(e.message); } finally { setDemoIdentityBusy(false); } }}>{demoIdentityBusy ? "Simulating…" : "Demo identity flow"}</button>
-            <button className="tool-menu-button" onClick={() => { setGuideSection("start"); setGuideOpen(true); }}>How to use Maatamudra</button>
-            <button className="tool-menu-button" onClick={() => { setGuideSection("word"); setGuideOpen(true); }}>Use Maatamudra in Word</button>
-          </div>
-        </details>
+        <nav className="top-workspace-tabs" role="tablist" aria-label="Workspace tools">
+          <button role="tab" aria-selected={topView === "workspace"} className={topView === "workspace" ? "active" : ""} onClick={() => setTopView("workspace")}>Workspace</button>
+          <button role="tab" aria-selected={topView === "drafts"} className={topView === "drafts" ? "active" : ""} onClick={() => { setTopView("drafts"); showMobilePanel("details"); }}>Drafts</button>
+          <button role="tab" aria-selected={topView === "contracts"} className={topView === "contracts" ? "active" : ""} onClick={() => { setTopView("contracts"); showMobilePanel("details"); api.listContracts().then(setContracts).catch((e) => setErr(e.message)); }}>Contracts</button>
+          <button role="tab" onClick={openMarketResearch}>Market</button>
+          <button role="tab" onClick={() => { setGuideSection("start"); setGuideOpen(true); }}>Guide</button>
+        </nav>
+        <div className="persona-switch top-persona" aria-label="Workspace mode">
+          {[ ["citizen", "Citizen"], ["advocate", "Advocate"], ["business", "Business"] ].map(([key, label]) =>
+            <button key={key} className={persona === key ? "on" : ""} onClick={() => setPersona(key)}>{label}</button>)}
+        </div>
         {contract && <>
           <a className="top-link" href={api.docxUrl(contract.id)}>Export .docx</a>
           <a className="top-link optional-link" href={api.icsUrl(contract.id)}>Calendar</a>
@@ -343,9 +382,9 @@ export default function App() {
 
       <section className={`pane pane-details${detailsOpen ? "" : " pane-hidden"}`} aria-label="Details">
         <div className="pane-title-row"><div className="section-kicker"><span className="kicker-line" /> YOUR AGREEMENT</div><button className="pane-close" onClick={() => setDetailsOpen(false)} aria-label="Hide details panel" title="Hide details panel">−</button></div>
-        <div className="draft-history">
+        {topView === "drafts" && <div className="draft-history library-view">
           <div className="draft-history-heading"><b>Saved drafts</b><button onClick={startNewDraft}>New draft +</button></div>
-          <p>Stored on this browser only; not synced to an account. Uploaded files aren’t saved.</p>
+          <p>Private to this browser profile; not shared with other browser profiles. Uploaded files aren’t saved. Real account isolation is not enabled in this demo.</p>
           <div className="draft-history-list">
             {drafts.map((draft) => (
               <button key={draft.id} className={`draft-history-item${draft.id === activeDraftId ? " active" : ""}`} aria-current={draft.id === activeDraftId ? "true" : undefined} onClick={() => openDraft(draft)}>
@@ -354,7 +393,20 @@ export default function App() {
             ))}
             {drafts.length === 0 && <span className="draft-history-empty">Your drafts will appear here as you work.</span>}
           </div>
-        </div>
+        </div>}
+        {topView === "contracts" && <div className="draft-history library-view">
+          <div className="draft-history-heading"><b>Generated contracts</b><button onClick={() => { setTopView("workspace"); startNewDraft(); }}>New contract +</button></div>
+          <p>Contracts generated in this workspace are shown here. A production user-account boundary is required for true cross-user privacy.</p>
+          <div className="draft-history-list">
+            {contracts.map((item) => (
+              <button key={item.id} className="draft-history-item" onClick={() => openContract(item)}>
+                <span>{item.title || item.type}</span><small>{item.type} · {new Date(item.updated_at).toLocaleString()}</small>
+              </button>
+            ))}
+            {contracts.length === 0 && <span className="draft-history-empty">No generated contracts yet.</span>}
+          </div>
+        </div>}
+        {topView === "workspace" && <>
         <div className="modes" role="tablist" aria-label="Mode">
           <button role="tab" aria-selected={mode === "draft"} onClick={() => switchMode("draft")}><span>✳</span> Create new</button>
           <button role="tab" aria-selected={mode === "upload"} onClick={() => switchMode("upload")}><span>↗</span> Review a document</button>
@@ -420,6 +472,7 @@ export default function App() {
             {(analysis || contract) && <div className="row"><button onClick={reset}>Start over</button></div>}
           </>
         )}
+        </>}
       </section>
 
       <main className="pane pane-main" aria-label="Agreement">

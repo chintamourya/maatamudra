@@ -13,6 +13,7 @@ async function call(path, opts = {}) {
 }
 export const api = {
   health: () => call("/api/health"),
+  listContracts: () => call("/api/contracts"),
   marketResearch: () => call("/api/market-research"),
   translate: (text, target_language, source_language = "auto") => call("/api/translate", { method: "POST", body: { text, target_language, source_language } }),
   demoAuth: (user_label, role) => call("/api/demo/auth/session", { method: "POST", body: { user_label, role } }),
