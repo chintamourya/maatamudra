@@ -52,15 +52,127 @@
   });
   const postEmpty = (path) => api(path, { method: "POST" });
   const contractPath = (path) => "/api/contracts/" + encodeURIComponent(state.contract.id) + path;
+  function humanLabel(value) {
+    return String(value).replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ").trim().replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+  }
+  function appendInline(parent, text) {
+    const pattern = /\*\*(.+?)\*\*|\[clause:([a-z0-9_]+)\]/gi;
+    let start = 0;
+    let match;
+    while ((match = pattern.exec(text))) {
+      if (match.index > start) parent.append(document.createTextNode(text.slice(start, match.index)));
+      if (match[1]) parent.append(el("strong", null, match[1]));
+      else parent.append(el("span", "output-chip", humanLabel(match[2]) + " clause"));
+      start = pattern.lastIndex;
+    }
+    if (start < text.length) parent.append(document.createTextNode(text.slice(start)));
+  }
+  function renderProse(value) {
+    const block = el("div", "output-prose");
+    let list = null;
+    let listTag = "";
+    String(value).split(/\r?\n/).forEach((rawLine) => {
+      const line = rawLine.trim();
+      if (!line) { list = null; listTag = ""; return; }
+      const bullet = line.match(/^[-*]\s+(.+)$/);
+      const numbered = line.match(/^\d+[.)]\s+(.+)$/);
+      if (bullet || numbered) {
+        const tag = numbered ? "ol" : "ul";
+        if (!list || listTag !== tag) {
+          list = el(tag);
+          listTag = tag;
+          block.append(list);
+        }
+        const item = el("li");
+        appendInline(item, (bullet || numbered)[1]);
+        list.append(item);
+        return;
+      }
+      list = null;
+      listTag = "";
+      const heading = line.match(/^#{1,3}\s+(.+)$/);
+      const paragraph = el(heading ? "h4" : "p", heading ? "output-subheading" : null);
+      appendInline(paragraph, heading ? heading[1] : line);
+      block.append(paragraph);
+    });
+    return block;
+  }
+  function renderTrace(trace) {
+    if (!Array.isArray(trace) || !trace.length) return null;
+    const details = el("details", "output-trace");
+    details.append(el("summary", null, "Technical details"));
+    const pre = el("pre");
+    pre.textContent = JSON.stringify(trace, null, 2);
+    details.append(pre);
+    return details;
+  }
+  function renderObject(value) {
+    const content = el("div", "output-object");
+    if (typeof value.answer === "string") {
+      content.append(renderProse(value.answer));
+      if (Array.isArray(value.citations) && value.citations.length) {
+        const citations = el("div", "output-meta");
+        citations.append(el("strong", null, "Cited clauses"));
+        const chips = el("div", "output-chips");
+        value.citations.forEach((citation) => chips.append(el("span", "output-chip", humanLabel(citation))));
+        citations.append(chips);
+        content.append(citations);
+      }
+      if (Array.isArray(value.warnings) && value.warnings.length) {
+        const warnings = el("div", "output-warnings");
+        warnings.append(el("strong", null, "Notes"));
+        warnings.append(renderValue(value.warnings));
+        content.append(warnings);
+      }
+      const trace = renderTrace(value.trace);
+      if (trace) content.append(trace);
+      return content;
+    }
+
+    const fields = el("dl", "output-fields");
+    Object.entries(value).forEach(([key, item]) => {
+      if (key === "trace" || (key === "warnings" && Array.isArray(item) && !item.length)) return;
+      const row = el("div", "output-field");
+      row.append(el("dt", null, humanLabel(key)));
+      const description = el("dd");
+      if (key === "citations" && Array.isArray(item)) {
+        const chips = el("div", "output-chips");
+        item.forEach((citation) => chips.append(el("span", "output-chip", humanLabel(citation))));
+        description.append(chips);
+      } else {
+        description.append(renderValue(item));
+      }
+      row.append(description);
+      fields.append(row);
+    });
+    if (fields.childNodes.length) content.append(fields);
+    const trace = renderTrace(value.trace);
+    if (trace) content.append(trace);
+    return content;
+  }
+  function renderValue(value) {
+    if (value == null) return el("span", "output-empty", "Not specified");
+    if (typeof value === "string") return renderProse(value);
+    if (typeof value === "boolean") return el("span", null, value ? "Yes" : "No");
+    if (typeof value === "number") return el("span", null, String(value));
+    if (Array.isArray(value)) {
+      if (!value.length) return el("span", "output-empty", "No items returned");
+      const list = el("ul", "output-items");
+      value.forEach((item) => {
+        const entry = el("li", "output-item");
+        entry.append(item && typeof item === "object" ? renderObject(item) : renderValue(item));
+        list.append(entry);
+      });
+      return list;
+    }
+    if (typeof value === "object") return renderObject(value);
+    return el("span", null, String(value));
+  }
   const outputCard = (title, value) => {
     const card = el("article", "output-card");
     if (title) card.append(el("h3", null, title));
-    if (typeof value === "string") card.append(el("p", null, value));
-    else {
-      const pre = el("pre");
-      pre.textContent = JSON.stringify(value, null, 2);
-      card.append(pre);
-    }
+    card.append(renderValue(value));
     return card;
   };
   const withAction = (button, label, action) => run(button, async () => {
