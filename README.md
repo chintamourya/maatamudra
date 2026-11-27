@@ -32,7 +32,7 @@ Review agreements inside Microsoft Word:
 3. Select a finding to locate it in the document or add a comment. You can also review a suggested rewrite and apply it as a tracked change.
 4. Accept or reject applied edits in Word. Run the review again after changing the document.
 
-The add-in does not support scanned/image-only documents. Use synthetic or redacted agreements on a public demo.
+Open **Workspace tools → Use Maatamudra in Word** in the app for an in-product setup and usage walkthrough. The add-in does not support scanned/image-only documents. Use synthetic or redacted agreements on a public demo.
 
 ## Open source
 
