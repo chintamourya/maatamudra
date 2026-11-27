@@ -40,9 +40,10 @@ footer{padding:10px 14px 18px;font-size:11px;color:var(--muted);border-top:1px s
 .tool-header{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .tool-header h2{margin-top:4px}
 .tool-header a{font-size:11px;color:var(--accent)}
-.tool-tabs{display:flex;gap:3px;overflow-x:auto;border-bottom:1px solid var(--line);margin:10px -2px;padding:0 2px 6px}
-.tool-tabs button{flex:0 0 auto;padding:7px 8px;font-size:11px}
+.tool-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;border-bottom:1px solid var(--line);margin:10px -2px;padding:0 2px 8px}
+.tool-tabs button{min-width:0;width:100%;padding:7px 8px;font-size:11px;line-height:1.25;white-space:normal}
 .tool-tabs button[aria-selected="true"]{border-color:#b8d7f5;background:#e8f3ff;color:#004182;font-weight:700}
+#workspaceStatus{overflow-wrap:anywhere}
 .tool-panel{padding:4px 0}
 .tool-panel label{margin-top:8px}
 .output-card{border:1px solid var(--line);border-radius:8px;background:var(--card);padding:10px;margin:8px 0}

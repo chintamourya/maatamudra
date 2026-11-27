@@ -19,9 +19,12 @@
     return n;
   }
   function setStatus(msg, isError) {
-    const s = $("status");
-    s.textContent = msg || "";
-    s.className = "status" + (isError ? " error" : "");
+    ["status", "contractSetupStatus", "workspaceStatus"].forEach((id) => {
+      const status = $(id);
+      if (!status) return;
+      status.textContent = msg || "";
+      status.className = "status" + (isError ? " error" : "");
+    });
   }
   function setBusy(b) {
     state.busy = b;
@@ -245,7 +248,7 @@
   async function run(btn, fn) {
     const old = btn.textContent;
     btn.disabled = true;
-    try { setStatus(""); await fn(); } catch (e) { setStatus(e.message, true); } finally {
+    try { setStatus(""); await fn(); } catch (e) { setStatus((old.trim() || "Action") + ": " + e.message, true); } finally {
       btn.disabled = btn.dataset.keepDisabled === "true";
       delete btn.dataset.keepDisabled;
       btn.textContent = old;
